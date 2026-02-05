@@ -132,7 +132,7 @@
 <body class="bg-gray-50 text-slate-800 flex flex-col min-h-screen relative">
 
     <header class="bg-white/80 backdrop-blur-md border-b border-gray-100 sticky top-0 z-50">
-        <div class="max-w-6xl mx-auto px-5 py-4 flex justify-between items-center">
+        <div class="max-w-6xl mx-auto px-4 py-3 md:px-6 md:py-4 flex justify-between items-center">
             <a href="https://geo-analyze.netlify.app/" class="flex items-center gap-2 group">
                 <div
                     class="w-8 h-8 rounded-full bg-gradient-to-br from-naranja-400 to-naranja-600 flex items-center justify-center text-white shadow-lg shadow-naranja-500/30 group-hover:scale-110 transition-transform">
@@ -155,13 +155,13 @@
         </div>
     </header>
 
-    <main class="flex-grow w-full max-w-4xl mx-auto px-4 py-16 flex flex-col items-center">
+    <main class="flex-grow w-full max-w-4xl mx-auto px-4 py-10 md:py-16 flex flex-col items-center">
         <div class="text-center mb-12 w-full max-w-2xl fade-in" style="animation-delay: 0.1s;">
             <div
                 class="inline-block px-3 py-1 mb-4 text-xs font-semibold text-naranja-600 bg-naranja-50 rounded-full border border-naranja-100">
                 ✨ AI Search Optimization Tool
             </div>
-            <h1 class="text-4xl md:text-5xl font-black mb-6 leading-tight text-slate-900">
+            <h1 class="text-3xl sm:text-4xl md:text-5xl font-black mb-6 leading-tight text-slate-900">
                 <span data-i18n="title_1">당신의 웹사이트는</span><br>
                 <span class="text-gradient" data-i18n="title_2">AI에게 발견되고 있나요?</span>
             </h1>
@@ -181,7 +181,7 @@
                         required>
                 </div>
                 <button onclick="analyzeSite()" id="analyzeBtn"
-                    class="bg-naranja-500 hover:bg-naranja-600 text-white font-bold px-8 py-4 rounded-xl transition-all shadow-lg shadow-naranja-500/20 active:scale-95 flex items-center justify-center gap-2 whitespace-nowrap">
+                    class="bg-naranja-500 hover:bg-naranja-600 text-white font-bold px-8 py-4 rounded-xl transition-all shadow-lg shadow-naranja-500/20 active:scale-95 flex items-center justify-center gap-2 whitespace-nowrap w-full sm:w-auto">
                     <span data-i18n="btn_analyze">무료 진단 시작</span>
                     <i class="fa-solid fa-arrow-right-long"></i>
                 </button>
@@ -203,14 +203,15 @@
                         class="fa-solid fa-bolt absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-naranja-500 text-xl"></i>
                 </div>
             </div>
-            <h3 class="text-xl font-bold text-slate-800 mb-2" data-i18n="loading_title">AI 엔진이 분석 중입니다...</h3>
+            <h3 class="text-xl font-bold text-slate-800 mb-2" data-i18n="loading_title">AI 엔진이 분석 중입니다...(최대 2분이 소요됩니다)
+            </h3>
             <p class="text-gray-500" data-i18n="loading_desc">구조화 데이터, 텍스트 가독성, 신뢰도 데이터를 수집하고 있습니다.</p>
         </div>
 
         <div id="resultSection" class="hidden w-full fade-in">
             <div class="bg-white rounded-3xl shadow-xl border border-gray-100 overflow-hidden mb-8 relative">
                 <div class="absolute top-0 w-full h-1 bg-gradient-to-r from-naranja-400 to-naranja-600"></div>
-                <div class="p-8 md:p-10 flex flex-col md:flex-row items-center gap-10">
+                <div class="p-6 md:p-10 flex flex-col md:flex-row items-center gap-8 md:gap-10">
                     <div class="relative w-40 h-40 flex-shrink-0">
                         <svg class="w-full h-full transform -rotate-90">
                             <circle cx="80" cy="80" r="70" stroke="#ffedd5" stroke-width="12" fill="none" />
@@ -239,7 +240,7 @@
                 </div>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mb-12">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-12">
                 <div
                     class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-all group">
                     <div class="flex justify-between items-center mb-4">
@@ -275,6 +276,19 @@
                     </div>
                     <h4 class="font-bold text-slate-700">Authority</h4>
                     <p class="text-xs text-gray-400 mt-1">Backlinks, Citations</p>
+                </div>
+                <!-- AI Readability -->
+                <div
+                    class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-all group">
+                    <div class="flex justify-between items-center mb-4">
+                        <div
+                            class="p-3 bg-teal-50 text-teal-600 rounded-xl group-hover:bg-teal-600 group-hover:text-white transition-colors">
+                            <i class="fa-solid fa-robot"></i>
+                        </div>
+                        <span class="text-2xl font-bold text-slate-900" id="scoreAiReadability">-</span>
+                    </div>
+                    <h4 class="font-bold text-slate-700">AI Readability</h4>
+                    <p class="text-xs text-gray-400 mt-1">LLM Parsing Friendly</p>
                 </div>
             </div>
 
@@ -321,7 +335,7 @@
     <div id="consultModal" class="hidden fixed inset-0 z-[60] flex items-center justify-center">
         <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" onclick="closeModal()"></div>
 
-        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-lg mx-4 relative z-10 p-8 transform transition-all scale-95 opacity-0"
+        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-lg mx-4 relative z-10 p-6 md:p-8 transform transition-all scale-95 opacity-0"
             id="modalContent">
             <button onclick="closeModal()"
                 class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors">
@@ -385,7 +399,7 @@
                 subtitle: "ChatGPT, Gemini 등 생성형 AI가 귀하의 브랜드를 어떻게 인식하는지 Media Naranja의 기술로 정확하게 진단해드립니다.",
                 btn_analyze: "무료 진단 시작",
                 error_url: "올바른 도메인을 입력해주세요 (예: example.com)",
-                loading_title: "AI 엔진이 분석 중입니다...",
+                loading_title: "AI 엔진이 분석 중입니다...(최대 2분이 소요됩니다)",
                 loading_desc: "구조화 데이터, 텍스트 가독성, 신뢰도 데이터를 수집하고 있습니다.",
                 cta_title: "점수를 100점으로 만들고 싶으신가요?",
                 cta_desc: "Media Naranja의 GEO 전문 컨설턴트가 귀하의 사이트를 AI가 가장 좋아하는 구조로 재설계해 드립니다.",
@@ -401,7 +415,7 @@
                 subtitle: "Diagnose how Generative AI like ChatGPT & Gemini perceive your brand with Media Naranja's technology.",
                 btn_analyze: "Start Free Audit",
                 error_url: "Please enter a valid domain (e.g. example.com)",
-                loading_title: "AI Engine is analyzing...",
+                loading_title: "AI Engine is analyzing...(Max 2 minutes)",
                 loading_desc: "Collecting structured data, text readability, and authority metrics.",
                 cta_title: "Want to hit a 100 score?",
                 cta_desc: "Media Naranja's GEO experts will redesign your site structure to be AI-friendly.",
@@ -485,10 +499,17 @@
 
             document.getElementById('totalScore').innerText = data.total_score;
             circle.style.strokeDashoffset = offset;
-            document.getElementById('summaryText').innerText = data.summary;
+
+            // Show site description + summary
+            const summaryHtml = `<div class="mb-2 font-bold text-slate-800">${data.site_description || ''}</div>
+                                 <div>${data.summary}</div>`;
+            document.getElementById('summaryText').innerHTML = summaryHtml;
+
+            // Update scores with new keys
             document.getElementById('scoreTech').innerText = data.technical_score;
             document.getElementById('scoreContent').innerText = data.content_score;
             document.getElementById('scoreAuthority').innerText = data.authority_score;
+            document.getElementById('scoreAiReadability').innerText = data.ai_readability_score;
 
             const gradeLabel = document.getElementById('gradeLabel');
             let gradeKey = 'grade_poor';
