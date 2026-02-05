@@ -362,6 +362,156 @@
                 </div>
             </div>
         </div>
+        <!-- Pricing Section -->
+        <div id="pricingSection" class="hidden w-full max-w-6xl mt-20 md:mt-32 mb-20 fade-in"
+            style="animation-delay: 0.5s;">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-black text-slate-900 mb-4 leading-tight">
+                    <span data-i18n="pricing_title">서비스 요금 안내</span>
+                </h2>
+                <p class="text-gray-500 md:text-lg" data-i18n="pricing_desc">
+                    비즈니스 규모와 니즈에 맞는 최적의 플랜을 선택하세요.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
+                <!-- LIGHT -->
+                <div
+                    class="bg-white rounded-3xl p-8 border border-gray-100 shadow-lg hover:shadow-xl transition-all flex flex-col relative overflow-hidden group">
+                    <div
+                        class="absolute top-0 left-0 w-full h-1 bg-gray-200 group-hover:bg-naranja-200 transition-colors">
+                    </div>
+                    <div class="mb-6">
+                        <span class="text-naranja-500 font-bold text-sm tracking-wider uppercase mb-2 block"
+                            data-i18n="p_light_sub">가볍게 시작하기</span>
+                        <h3 class="text-2xl font-black text-slate-900" data-i18n="p_light_name">LIGHT (진단 리포트)</h3>
+                        <p class="text-gray-400 text-sm mt-2" data-i18n="p_light_target">예산이 적은 소상공인, 블로거, 초기 스타트업</p>
+                    </div>
+                    <div class="mb-8">
+                        <div class="flex items-baseline gap-1">
+                            <span class="text-3xl font-black text-slate-900" data-i18n="p_light_price">290,000</span>
+                            <span class="text-gray-400 font-medium">KRW</span>
+                        </div>
+                        <p class="text-xs text-gray-400 mt-1" data-i18n="vat_separate">(VAT 별도)</p>
+                    </div>
+                    <ul class="space-y-4 mb-8 flex-grow">
+                        <li class="flex items-start gap-3 text-sm text-slate-600">
+                            <i class="fa-solid fa-check text-naranja-500 mt-0.5"></i>
+                            <span data-i18n="p_light_f1">상세 GEO 진단 리포트 (PDF)</span>
+                        </li>
+                        <li class="flex items-start gap-3 text-sm text-slate-600">
+                            <i class="fa-solid fa-check text-naranja-500 mt-0.5"></i>
+                            <span data-i18n="p_light_f2">경쟁사 대비 AI 노출 현황 분석</span>
+                        </li>
+                        <li class="flex items-start gap-3 text-sm text-slate-600">
+                            <i class="fa-solid fa-check text-naranja-500 mt-0.5"></i>
+                            <span data-i18n="p_light_f3">개발자가 바로 적용할 수 있는 가이드라인(지침서) 제공</span>
+                        </li>
+                        <li class="flex items-start gap-3 text-sm text-slate-600 font-bold">
+                            <i class="fa-solid fa-check text-naranja-500 mt-0.5"></i>
+                            <span data-i18n="p_light_f4">3개 이하 html page에 대하여 GEO 적용된 수정 html 제공</span>
+                        </li>
+                    </ul>
+                    <button onclick="openModal()"
+                        class="w-full py-4 rounded-xl border-2 border-slate-100 text-slate-700 font-bold hover:border-naranja-500 hover:text-naranja-500 transition-colors"
+                        data-i18n="btn_inquiry">
+                        문의하기
+                    </button>
+                </div>
+
+                <!-- STANDARD -->
+                <div
+                    class="bg-white rounded-3xl p-8 border-2 border-naranja-500 shadow-2xl relative flex flex-col transform md:-translate-y-4 md:hover:-translate-y-6 transition-all z-10">
+                    <div class="absolute top-0 inset-x-0 -mt-4 flex justify-center">
+                        <span class="bg-naranja-500 text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg"
+                            data-i18n="p_standard_badge">Best Value (가장 추천)</span>
+                    </div>
+                    <div class="mb-6 mt-2">
+                        <span class="text-naranja-500 font-bold text-sm tracking-wider uppercase mb-2 block"
+                            data-i18n="p_standard_sub">테크니컬 세팅</span>
+                        <h3 class="text-2xl font-black text-slate-900" data-i18n="p_standard_name">STANDARD</h3>
+                        <p class="text-gray-400 text-sm mt-2" data-i18n="p_standard_target">개발팀이 없거나 바쁜 중소기업, 병원, 로펌</p>
+                    </div>
+                    <div class="mb-8">
+                        <div class="flex items-baseline gap-1">
+                            <span class="text-3xl font-black text-slate-900" data-i18n="p_standard_price">990,000
+                                ~</span>
+                            <span class="text-gray-400 font-medium">KRW</span>
+                        </div>
+                        <p class="text-xs text-gray-400 mt-1" data-i18n="vat_separate">(VAT 별도)</p>
+                    </div>
+                    <ul class="space-y-4 mb-8 flex-grow">
+                        <li class="flex items-start gap-3 text-sm text-slate-600">
+                            <i class="fa-solid fa-check text-naranja-500 mt-0.5"></i>
+                            <span data-i18n="p_standard_f1">LIGHT 패키지 전체 포함</span>
+                        </li>
+                        <li
+                            class="flex items-start gap-3 text-sm text-slate-900 font-bold bg-naranja-50 p-2 rounded-lg -mx-2">
+                            <i class="fa-solid fa-bolt text-naranja-500 mt-0.5"></i>
+                            <div class="flex flex-col">
+                                <span data-i18n="p_standard_f2">실제 코드 수정 및 적용 대행</span>
+                                <span class="text-xs text-naranja-600 font-normal"
+                                    data-i18n="p_standard_f2_detail">JSON-LD 스키마, Robots.txt 최적화</span>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-3 text-sm text-slate-600">
+                            <i class="fa-solid fa-check text-naranja-500 mt-0.5"></i>
+                            <span data-i18n="p_standard_f3">검색 엔진(Google, Bing) 인덱싱 요청 처리</span>
+                        </li>
+                        <li class="flex items-start gap-3 text-sm text-slate-600 font-bold">
+                            <i class="fa-solid fa-plus text-naranja-500 mt-0.5"></i>
+                            <span data-i18n="p_standard_f4">10개 이하 html page에 대하여 GEO 적용된 수정 html 제공</span>
+                        </li>
+                    </ul>
+                    <button onclick="openModal()"
+                        class="w-full py-4 rounded-xl bg-gradient-to-r from-naranja-500 to-naranja-600 text-white font-bold shadow-lg shadow-naranja-500/30 hover:shadow-xl hover:shadow-naranja-500/40 transition-all hover:scale-[1.02]"
+                        data-i18n="btn_start_now">
+                        지금 시작하기
+                    </button>
+                </div>
+
+                <!-- ENTERPRISE -->
+                <div
+                    class="bg-slate-900 rounded-3xl p-8 border border-slate-700 shadow-xl hover:shadow-2xl transition-all flex flex-col relative overflow-hidden group text-white">
+                    <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-naranja-400 to-purple-500"></div>
+                    <div class="mb-6">
+                        <span class="text-naranja-400 font-bold text-sm tracking-wider uppercase mb-2 block"
+                            data-i18n="p_enterprise_sub">브랜드 방어 & 관리</span>
+                        <h3 class="text-2xl font-black text-white" data-i18n="p_enterprise_name">ENTERPRISE</h3>
+                        <p class="text-slate-400 text-sm mt-2" data-i18n="p_enterprise_target">중견기업, 프랜차이즈 본사, 상장사</p>
+                    </div>
+                    <div class="mb-8">
+                        <div class="flex items-baseline gap-1">
+                            <span class="text-3xl font-black text-white" data-i18n="p_enterprise_price">Custom</span>
+                        </div>
+                        <p class="text-xs text-slate-500 mt-1" data-i18n="p_enterprise_price_sub">별도 문의 또는 월 구독형</p>
+                    </div>
+                    <ul class="space-y-4 mb-8 flex-grow">
+                        <li class="flex items-start gap-3 text-sm text-slate-300">
+                            <i class="fa-solid fa-shield-halved text-naranja-400 mt-0.5"></i>
+                            <span data-i18n="p_enterprise_f1">AI 할루시네이션(허위 정보) 모니터링 및 방어</span>
+                        </li>
+                        <li class="flex items-start gap-3 text-sm text-slate-300">
+                            <i class="fa-solid fa-file-invoice text-naranja-400 mt-0.5"></i>
+                            <span data-i18n="p_enterprise_f2">브랜드 팩트 시트(Brand Fact Sheet) 구축 및 배포</span>
+                        </li>
+                        <li class="flex items-start gap-3 text-sm text-slate-300">
+                            <i class="fa-solid fa-chart-pie text-naranja-400 mt-0.5"></i>
+                            <span data-i18n="p_enterprise_f3">경쟁사 비교 우위 콘텐츠 구조화</span>
+                        </li>
+                        <li class="flex items-start gap-3 text-sm text-slate-300">
+                            <i class="fa-solid fa-calendar-check text-naranja-400 mt-0.5"></i>
+                            <span data-i18n="p_enterprise_f4">월간 정기 리포트 및 미팅</span>
+                        </li>
+                    </ul>
+                    <button onclick="openModal()"
+                        class="w-full py-4 rounded-xl border border-slate-600 bg-slate-800 text-white font-bold hover:bg-slate-700 transition-colors"
+                        data-i18n="btn_contact_us">
+                        Contact Us
+                    </button>
+                </div>
+            </div>
+        </div>
     </main>
 
     <footer class="bg-white border-t border-gray-100 py-10">
@@ -472,7 +622,40 @@
                 reason_2_title: "단 하나의 승자",
                 reason_2_desc: "AI 답변은 상위 1~2개의 출처만 인용합니다. AI가 선택한 'Top Tier'가 아니면 아예 노출되지 않습니다.",
                 reason_3_title: "존재감의 상실",
-                reason_3_desc: "AI가 학습하지 못한 브랜드는 소비자에게 '존재하지 않는 브랜드'가 됩니다. 지금 선점해야 합니다."
+                reason_3_desc: "AI가 학습하지 못한 브랜드는 소비자에게 '존재하지 않는 브랜드'가 됩니다. 지금 선점해야 합니다.",
+                pricing_title: "서비스 요금 안내",
+                pricing_desc: "비즈니스 규모와 니즈에 맞는 최적의 플랜을 선택하세요.",
+                p_light_sub: "가볍게 시작하기",
+                p_light_name: "LIGHT (진단 리포트)",
+                p_light_target: "예산이 적은 소상공인, 블로거, 초기 스타트업",
+                p_light_price: "290,000",
+                vat_separate: "(VAT 별도)",
+                p_light_f1: "상세 GEO 진단 리포트 (PDF)",
+                p_light_f2: "경쟁사 대비 AI 노출 현황 분석",
+                p_light_f3: "개발자가 바로 적용할 수 있는 가이드라인(지침서) 제공",
+                p_light_f4: "3개 이하 html page에 대하여 GEO 적용된 수정 html 제공",
+                btn_inquiry: "문의하기",
+                p_standard_badge: "Best Value (가장 추천)",
+                p_standard_sub: "테크니컬 세팅",
+                p_standard_name: "STANDARD",
+                p_standard_target: "개발팀이 없거나 바쁜 중소기업, 병원, 로펌",
+                p_standard_price: "990,000 ~ 1,490,000",
+                p_standard_f1: "LIGHT 패키지 전체 포함",
+                p_standard_f2: "실제 코드 수정 및 적용 대행",
+                p_standard_f2_detail: "JSON-LD 스키마, Robots.txt 최적화",
+                p_standard_f3: "검색 엔진(Google, Bing) 인덱싱 요청 처리",
+                p_standard_f4: "10개 이하 html page에 대하여 GEO 적용된 수정 html 제공",
+                btn_start_now: "지금 시작하기",
+                p_enterprise_sub: "브랜드 방어 & 관리",
+                p_enterprise_name: "ENTERPRISE",
+                p_enterprise_target: "중견기업, 프랜차이즈 본사, 상장사",
+                p_enterprise_price: "Custom",
+                p_enterprise_price_sub: "별도 문의 또는 월 구독형",
+                p_enterprise_f1: "AI 할루시네이션(허위 정보) 모니터링 및 방어",
+                p_enterprise_f2: "브랜드 팩트 시트(Brand Fact Sheet) 구축 및 배포",
+                p_enterprise_f3: "경쟁사 비교 우위 콘텐츠 구조화",
+                p_enterprise_f4: "월간 정기 리포트 및 미팅",
+                btn_contact_us: "Contact Us"
             },
             en: {
                 title_1: "Is your website",
@@ -496,7 +679,40 @@
                 reason_2_title: "Winner Takes All",
                 reason_2_desc: "AI cites only top 1-2 sources. If you are not the AI's favorite, you are invisible.",
                 reason_3_title: "Loss of Presence",
-                reason_3_desc: "Brands unknown to AI effectively don't exist to modern consumers. Secure your spot now."
+                reason_3_desc: "Brands unknown to AI effectively don't exist to modern consumers. Secure your spot now.",
+                pricing_title: "Service Pricing",
+                pricing_desc: "Choose the plan that fits your business scale and needs.",
+                p_light_sub: "Start Light",
+                p_light_name: "LIGHT (Audit Report)",
+                p_light_target: "Small businesses, Bloggers, Early Startups",
+                p_light_price: "290,000",
+                vat_separate: "(VAT Excluded)",
+                p_light_f1: "Detailed GEO Diagnosis Report (PDF)",
+                p_light_f2: "AI Exposure Analysis vs Competitors",
+                p_light_f3: "Developer-ready Implementation Guidelines",
+                p_light_f4: "GEO-optimized HTML for up to 3 pages",
+                btn_inquiry: "Inquire",
+                p_standard_badge: "Best Value",
+                p_standard_sub: "Technical Setup",
+                p_standard_name: "STANDARD",
+                p_standard_target: "SMEs, Clinics, Law Firms (No Dev Team)",
+                p_standard_price: "990,000 ~ 1,490,000",
+                p_standard_f1: "Includes all LIGHT features",
+                p_standard_f2: "Code Implementation & Technical Setup",
+                p_standard_f2_detail: "JSON-LD Schema, Robots.txt Optimization",
+                p_standard_f3: "Search Engine (Google, Bing) Indexing",
+                p_standard_f4: "GEO-optimized HTML for up to 10 pages",
+                btn_start_now: "Start Now",
+                p_enterprise_sub: "Brand Defense & Mgmt",
+                p_enterprise_name: "ENTERPRISE",
+                p_enterprise_target: "Mid-sized Cos, Franchises, Public Cos",
+                p_enterprise_price: "Custom",
+                p_enterprise_price_sub: "Contact Us or Monthly Subscription",
+                p_enterprise_f1: "AI Hallucination Monitoring & Defense",
+                p_enterprise_f2: "Brand Fact Sheet Construction",
+                p_enterprise_f3: "Competitor Advantage Content Structuring",
+                p_enterprise_f4: "Monthly Reports & Meetings",
+                btn_contact_us: "Contact Us"
             }
         };
 
@@ -525,12 +741,14 @@
             const errorMsg = document.getElementById('errorMsg');
             const loadingSection = document.getElementById('loadingSection');
             const resultSection = document.getElementById('resultSection');
+            const pricingSection = document.getElementById('pricingSection');
             const analyzeBtn = document.getElementById('analyzeBtn');
             const infoSection = document.getElementById('infoSection');
 
             errorMsg.classList.add('hidden');
             resultSection.classList.add('hidden');
             if (infoSection) infoSection.classList.add('hidden'); // Hide info section on analyze
+            if (pricingSection) pricingSection.classList.add('hidden'); // Hide pricing section on analyze
 
             const domainPattern = /.+\..+/;
             if (!url || !domainPattern.test(url)) {
@@ -576,6 +794,7 @@
 
         function renderResult(data) {
             const resultSection = document.getElementById('resultSection');
+            const pricingSection = document.getElementById('pricingSection');
             const circle = document.getElementById('scoreCirclePath');
             const circumference = 439.8;
             const offset = circumference - (data.total_score / 100) * circumference;
@@ -607,6 +826,7 @@
             gradeLabel.innerText = i18n[currentLang][gradeKey];
             gradeLabel.className = `text-3xl font-black mb-1 ${colorClass}`;
             resultSection.classList.remove('hidden');
+            if (pricingSection) pricingSection.classList.remove('hidden');
         }
 
         // --- [Modal Logic] ---
