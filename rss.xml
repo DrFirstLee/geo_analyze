@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<channel>
+  <title>GEO 전문 컨설팅 - AI 검색 상위 노출 전략 (Media Naranja)</title>
+  <link>https://geo.naranja.my/</link>
+  <description>ChatGPT, Gemini 등 생성형 AI 시대의 필수 생존 전략. 당신의 브랜드가 AI 답변의 최상단에 위치하도록 진단하고 최적화해드립니다.</description>
+  <language>ko-kr</language>
+  <lastBuildDate>Thu, 05 Feb 2026 15:35:00 +0900</lastBuildDate>
+  <atom:link href="https://geo.naranja.my/rss.xml" rel="self" type="application/rss+xml" />
+  
+  <item>
+    <title>GEO 무료 진단 서비스 오픈</title>
+    <link>https://geo.naranja.my/</link>
+    <description><![CDATA[
+      내 웹사이트가 ChatGPT, Gemini, Claude 등 생성형 AI 검색에서 어떻게 노출되는지 무료로 진단해보세요. 
+      JSON-LD 구조화 데이터, 검색 엔진 최적화(SEO) 상태, 브랜드 신뢰도 등을 종합적으로 분석하여 점수를 제공합니다.
+    ]]></description>
+    <pubDate>Thu, 05 Feb 2026 00:00:00 +0900</pubDate>
+    <guid>https://geo.naranja.my/</guid>
+  </item>
+</channel>
+</rss>
