@@ -192,6 +192,57 @@
             </p>
         </div>
 
+        <!-- Importance/Alert Section -->
+        <div id="infoSection" class="w-full max-w-5xl mt-10 md:mt-16 fade-in" style="animation-delay: 0.3s;">
+            <div class="text-center mb-10">
+                <h2 class="text-2xl md:text-3xl font-bold text-slate-900 mb-4 leading-tight">
+                    <span data-i18n="why_title">검색의 시대가 끝나고<br><strong>대화의 시대</strong>가 왔습니다</span>
+                </h2>
+                <p class="text-gray-500 md:text-lg" data-i18n="why_desc">
+                    사용자는 더 이상 10개의 파란 링크를 클릭하지 않습니다.<br>AI가 요약한 <strong>단 하나의 정답</strong>만을 읽습니다.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Card 1 -->
+                <div
+                    class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-all hover:-translate-y-1">
+                    <div
+                        class="w-12 h-12 bg-red-50 rounded-xl flex items-center justify-center text-red-500 mb-4 text-xl">
+                        <i class="fa-solid fa-chart-line-down"></i>
+                    </div>
+                    <h3 class="font-bold text-lg text-slate-800 mb-2" data-i18n="reason_1_title">검색 점유율 급락</h3>
+                    <p class="text-sm text-gray-500 leading-relaxed" data-i18n="reason_1_desc">
+                        Google 검색 이탈율 30% 증가. 고객은 이미 검색창 대신 AI 채팅창에서 구매 결정을 내리고 있습니다.
+                    </p>
+                </div>
+                <!-- Card 2 -->
+                <div
+                    class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-all hover:-translate-y-1">
+                    <div
+                        class="w-12 h-12 bg-orange-50 rounded-xl flex items-center justify-center text-orange-500 mb-4 text-xl">
+                        <i class="fa-solid fa-crown"></i>
+                    </div>
+                    <h3 class="font-bold text-lg text-slate-800 mb-2" data-i18n="reason_2_title">단 하나의 승자</h3>
+                    <p class="text-sm text-gray-500 leading-relaxed" data-i18n="reason_2_desc">
+                        AI 답변은 상위 1~2개의 출처만 인용합니다. AI가 선택한 'Top Tier'가 아니면 아예 노출되지 않습니다.
+                    </p>
+                </div>
+                <!-- Card 3 -->
+                <div
+                    class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-all hover:-translate-y-1">
+                    <div
+                        class="w-12 h-12 bg-slate-50 rounded-xl flex items-center justify-center text-slate-600 mb-4 text-xl">
+                        <i class="fa-solid fa-user-lock"></i>
+                    </div>
+                    <h3 class="font-bold text-lg text-slate-800 mb-2" data-i18n="reason_3_title">신뢰도의 척도</h3>
+                    <p class="text-sm text-gray-500 leading-relaxed" data-i18n="reason_3_desc">
+                        AI가 인용하지 않는 브랜드는 소비자에게 '존재감이 없는 브랜드'로 인식되어 신뢰를 잃게 됩니다.
+                    </p>
+                </div>
+            </div>
+        </div>
+
         <div id="loadingSection" class="hidden text-center py-12 fade-in w-full">
             <div class="flex justify-center mb-6">
                 <div class="relative">
@@ -348,6 +399,11 @@
             </div>
 
             <form id="contactForm" onsubmit="submitContactForm(event)" class="space-y-4 text-left">
+                <input type="hidden" name="analysis_session_id" id="hidden_session_id">
+                <input type="hidden" name="summary_internal" id="hidden_summary_internal">
+                <input type="hidden" name="summary" id="hidden_summary">
+                <input type="hidden" name="total_score" id="hidden_total_score">
+                <input type="hidden" name="site_description" id="hidden_site_description">
                 <div>
                     <label class="block text-xs font-bold text-slate-700 mb-1">조직명 <span
                             class="text-red-500">*</span></label>
@@ -407,7 +463,15 @@
                 grade_excellent: "Excellent (매우 우수)",
                 grade_average: "Average (보통)",
                 grade_poor: "Poor (개선 필요)",
-                error_server: "서버 응답이 없습니다. 잠시 후 다시 시도해주세요."
+                error_server: "서버 응답이 없습니다. 잠시 후 다시 시도해주세요.",
+                why_title: "검색의 시대가 끝나고<br><strong>대화의 시대</strong>가 왔습니다",
+                why_desc: "사용자는 더 이상 10개의 파란 링크를 클릭하지 않습니다.<br>AI가 요약한 <strong>단 하나의 정답</strong>만을 읽습니다.",
+                reason_1_title: "검색 점유율 급락",
+                reason_1_desc: "Google 검색 이탈율 30% 증가. 고객은 이미 검색창 대신 AI 채팅창에서 구매 결정을 내리고 있습니다.",
+                reason_2_title: "단 하나의 승자",
+                reason_2_desc: "AI 답변은 상위 1~2개의 출처만 인용합니다. AI가 선택한 'Top Tier'가 아니면 아예 노출되지 않습니다.",
+                reason_3_title: "존재감의 상실",
+                reason_3_desc: "AI가 학습하지 못한 브랜드는 소비자에게 '존재하지 않는 브랜드'가 됩니다. 지금 선점해야 합니다."
             },
             en: {
                 title_1: "Is your website",
@@ -423,7 +487,15 @@
                 grade_excellent: "Excellent",
                 grade_average: "Average",
                 grade_poor: "Poor (Needs Improvement)",
-                error_server: "No response from server. Please try again later."
+                error_server: "No response from server. Please try again later.",
+                why_title: "The End of Search,<br><strong>The Era of Conversation</strong>",
+                why_desc: "Users no longer click 10 blue links.<br>They read <strong>only one answer</strong> summarized by AI.",
+                reason_1_title: "Plummeting Search Volume",
+                reason_1_desc: "Search traffic is dropping. Customers are making decisions in AI chats, not search bars.",
+                reason_2_title: "Winner Takes All",
+                reason_2_desc: "AI cites only top 1-2 sources. If you are not the AI's favorite, you are invisible.",
+                reason_3_title: "Loss of Presence",
+                reason_3_desc: "Brands unknown to AI effectively don't exist to modern consumers. Secure your spot now."
             }
         };
 
@@ -453,9 +525,11 @@
             const loadingSection = document.getElementById('loadingSection');
             const resultSection = document.getElementById('resultSection');
             const analyzeBtn = document.getElementById('analyzeBtn');
+            const infoSection = document.getElementById('infoSection');
 
             errorMsg.classList.add('hidden');
             resultSection.classList.add('hidden');
+            if (infoSection) infoSection.classList.add('hidden'); // Hide info section on analyze
 
             const domainPattern = /.+\..+/;
             if (!url || !domainPattern.test(url)) {
@@ -478,6 +552,14 @@
 
                 if (!response.ok) throw new Error('Server Error');
                 const data = await response.json();
+
+                // Store hidden data for contact form
+                document.getElementById('hidden_session_id').value = data.analysis_session_id || '';
+                document.getElementById('hidden_summary_internal').value = data.summary_internal || '';
+                document.getElementById('hidden_summary').value = data.summary || '';
+                document.getElementById('hidden_total_score').value = data.total_score || 0;
+                document.getElementById('hidden_site_description').value = data.site_description || '';
+
                 renderResult(data);
 
             } catch (error) {
