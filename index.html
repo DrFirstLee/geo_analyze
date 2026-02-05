@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GEO Analytics Console - Media Naranja</title>
+
+    <meta name="description" content="Media Naranja GEO Analytics Console">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        naranja: {
+                            50: '#fff7ed', 100: '#ffedd5', 400: '#fb923c', 500: '#f97316', 600: '#ea580c', 900: '#7c2d12',
+                        },
+                        dark: { 900: '#1a1a1a' }
+                    },
+                    fontFamily: { sans: ['Pretendard', 'sans-serif'] }
+                }
+            }
+        }
+    </script>
+
+    <link rel="stylesheet" as="style" crossorigin
+        href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/static/pretendard.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        body {
+            font-family: 'Pretendard', sans-serif;
+        }
+
+        .fade-in {
+            animation: fadeIn 0.6s ease-out forwards;
+            opacity: 0;
+            transform: translateY(10px);
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .text-gradient {
+            background: linear-gradient(to right, #f97316, #fb923c);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50 text-slate-800 flex flex-col min-h-screen">
+
+    <header class="bg-white/80 backdrop-blur-md border-b border-gray-100 sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-5 py-4 flex justify-between items-center">
+            <a href="https://naranja.my/" target="_blank" class="flex items-center gap-2 group">
+                <div
+                    class="w-8 h-8 rounded-full bg-gradient-to-br from-naranja-400 to-naranja-600 flex items-center justify-center text-white shadow-lg shadow-naranja-500/30 group-hover:scale-110 transition-transform">
+                    <span class="font-bold text-lg">N</span>
+                </div>
+                <div class="flex flex-col">
+                    <span
+                        class="font-extrabold text-lg tracking-tight text-slate-900 group-hover:text-naranja-600 transition-colors">Media
+                        Naranja</span>
+                    <span class="text-[10px] text-gray-400 font-medium tracking-widest uppercase">Analytics
+                        Console</span>
+                </div>
+            </a>
+            <div class="flex bg-gray-100 rounded-full p-1">
+                <button onclick="setLanguage('ko')" id="btn-ko"
+                    class="px-3 py-1 text-xs font-bold rounded-full transition-all bg-white text-slate-900 shadow-sm">KR</button>
+                <button onclick="setLanguage('en')" id="btn-en"
+                    class="px-3 py-1 text-xs font-bold rounded-full transition-all text-slate-400 hover:text-slate-600">EN</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow w-full max-w-4xl mx-auto px-4 py-16 flex flex-col items-center">
+        <div class="text-center mb-12 w-full max-w-2xl fade-in" style="animation-delay: 0.1s;">
+            <div
+                class="inline-block px-3 py-1 mb-4 text-xs font-semibold text-naranja-600 bg-naranja-50 rounded-full border border-naranja-100">
+                ✨ AI Search Optimization Tool
+            </div>
+            <h1 class="text-4xl md:text-5xl font-black mb-6 leading-tight text-slate-900">
+                <span data-i18n="title_1">당신의 웹사이트는</span><br>
+                <span class="text-gradient" data-i18n="title_2">AI에게 발견되고 있나요?</span>
+            </h1>
+            <p class="text-gray-500 text-lg mb-10 leading-relaxed" data-i18n="subtitle">
+                ChatGPT, Gemini 등 생성형 AI가 귀하의 브랜드를 어떻게 인식하는지<br class="hidden md:block">
+                Media Naranja의 기술로 정확하게 진단해드립니다.
+            </p>
+
+            <div
+                class="bg-white p-2 rounded-2xl shadow-xl shadow-gray-200/50 border border-gray-100 flex flex-col sm:flex-row gap-2 relative group focus-within:ring-4 focus-within:ring-naranja-500/10 transition-all">
+                <div class="flex-grow relative">
+                    <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-gray-400">
+                        <i class="fa-solid fa-globe"></i>
+                    </div>
+                    <input type="url" id="targetUrl" placeholder="https://naranja.my"
+                        class="w-full pl-11 pr-4 py-4 rounded-xl bg-transparent border-none outline-none text-slate-800 placeholder-gray-300 font-medium h-full"
+                        required>
+                </div>
+                <button onclick="analyzeSite()" id="analyzeBtn"
+                    class="bg-naranja-500 hover:bg-naranja-600 text-white font-bold px-8 py-4 rounded-xl transition-all shadow-lg shadow-naranja-500/20 active:scale-95 flex items-center justify-center gap-2 whitespace-nowrap">
+                    <span data-i18n="btn_analyze">무료 진단 시작</span>
+                    <i class="fa-solid fa-arrow-right-long"></i>
+                </button>
+            </div>
+            <p id="errorMsg"
+                class="text-red-500 mt-4 text-sm hidden font-medium flex items-center justify-center gap-1 animate-pulse">
+                <i class="fa-solid fa-circle-exclamation"></i> <span data-i18n="error_url">올바른 URL을 입력해주세요.</span>
+            </p>
+        </div>
+
+        <div id="loadingSection" class="hidden text-center py-12 fade-in w-full">
+            <div class="flex justify-center mb-6">
+                <div class="relative">
+                    <div class="w-16 h-16 border-4 border-naranja-100 rounded-full"></div>
+                    <div
+                        class="w-16 h-16 border-4 border-naranja-500 rounded-full border-t-transparent animate-spin absolute top-0 left-0">
+                    </div>
+                    <i
+                        class="fa-solid fa-bolt absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-naranja-500 text-xl"></i>
+                </div>
+            </div>
+            <h3 class="text-xl font-bold text-slate-800 mb-2" data-i18n="loading_title">AI 엔진이 분석 중입니다...</h3>
+            <p class="text-gray-500" data-i18n="loading_desc">구조화 데이터, 텍스트 가독성, 신뢰도 데이터를 수집하고 있습니다.</p>
+        </div>
+
+        <div id="resultSection" class="hidden w-full fade-in">
+            <div class="bg-white rounded-3xl shadow-xl border border-gray-100 overflow-hidden mb-8 relative">
+                <div class="absolute top-0 w-full h-1 bg-gradient-to-r from-naranja-400 to-naranja-600"></div>
+                <div class="p-8 md:p-10 flex flex-col md:flex-row items-center gap-10">
+                    <div class="relative w-40 h-40 flex-shrink-0">
+                        <svg class="w-full h-full transform -rotate-90">
+                            <circle cx="80" cy="80" r="70" stroke="#ffedd5" stroke-width="12" fill="none" />
+                            <circle id="scoreCirclePath" cx="80" cy="80" r="70" stroke="#f97316" stroke-width="12"
+                                fill="none" stroke-dasharray="439.8" stroke-dashoffset="439.8" stroke-linecap="round"
+                                class="transition-all duration-1500 ease-out" />
+                        </svg>
+                        <div class="absolute inset-0 flex flex-col items-center justify-center">
+                            <span class="text-4xl font-black text-slate-800 tracking-tighter" id="totalScore">0</span>
+                            <span class="text-xs text-gray-400 font-bold mt-1">GEO SCORE</span>
+                        </div>
+                    </div>
+                    <div class="flex-1 text-center md:text-left">
+                        <div class="mb-4">
+                            <h3 class="text-3xl font-bold text-slate-900 mb-1" id="gradeLabel">-</h3>
+                            <p class="text-sm text-gray-400 font-medium uppercase tracking-wide">AI Optimization Status
+                            </p>
+                        </div>
+                        <div class="bg-gray-50 rounded-2xl p-5 border border-gray-100 text-left">
+                            <div class="flex items-start gap-3">
+                                <i class="fa-solid fa-quote-left text-naranja-300 text-xl"></i>
+                                <p id="summaryText" class="text-slate-600 leading-relaxed font-medium"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mb-12">
+                <div
+                    class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-all group">
+                    <div class="flex justify-between items-center mb-4">
+                        <div
+                            class="p-3 bg-blue-50 text-blue-600 rounded-xl group-hover:bg-blue-600 group-hover:text-white transition-colors">
+                            <i class="fa-solid fa-code"></i>
+                        </div>
+                        <span class="text-2xl font-bold text-slate-900" id="scoreTech">-</span>
+                    </div>
+                    <h4 class="font-bold text-slate-700">Technical</h4>
+                    <p class="text-xs text-gray-400 mt-1">JSON-LD, Robots.txt</p>
+                </div>
+                <div
+                    class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-all group">
+                    <div class="flex justify-between items-center mb-4">
+                        <div
+                            class="p-3 bg-purple-50 text-purple-600 rounded-xl group-hover:bg-purple-600 group-hover:text-white transition-colors">
+                            <i class="fa-solid fa-align-left"></i>
+                        </div>
+                        <span class="text-2xl font-bold text-slate-900" id="scoreContent">-</span>
+                    </div>
+                    <h4 class="font-bold text-slate-700">Content Clarity</h4>
+                    <p class="text-xs text-gray-400 mt-1">Structure, Readability</p>
+                </div>
+                <div
+                    class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-all group">
+                    <div class="flex justify-between items-center mb-4">
+                        <div
+                            class="p-3 bg-naranja-50 text-naranja-600 rounded-xl group-hover:bg-naranja-500 group-hover:text-white transition-colors">
+                            <i class="fa-solid fa-certificate"></i>
+                        </div>
+                        <span class="text-2xl font-bold text-slate-900" id="scoreAuthority">-</span>
+                    </div>
+                    <h4 class="font-bold text-slate-700">Authority</h4>
+                    <p class="text-xs text-gray-400 mt-1">Backlinks, Citations</p>
+                </div>
+            </div>
+
+            <div class="bg-dark-900 rounded-3xl p-8 md:p-12 text-center relative overflow-hidden">
+                <div
+                    class="absolute top-0 right-0 -mr-10 -mt-10 w-64 h-64 bg-naranja-500 rounded-full blur-3xl opacity-20">
+                </div>
+                <div class="relative z-10">
+                    <h3 class="text-2xl md:text-3xl font-bold text-white mb-4" data-i18n="cta_title">점수를 100점으로 만들고
+                        싶으신가요?</h3>
+                    <p class="text-gray-400 mb-8 max-w-xl mx-auto" data-i18n="cta_desc">Media Naranja의 GEO 전문 컨설턴트가 귀하의
+                        사이트를 AI가 가장 좋아하는 구조로 재설계해 드립니다.</p>
+                    <a href="https://naranja.my/" target="_blank"
+                        class="inline-flex items-center gap-2 bg-white text-dark-900 hover:bg-gray-100 px-8 py-4 rounded-xl font-bold transition-transform hover:-translate-y-1">
+                        <span data-i18n="cta_btn">전문가 컨설팅 신청하기</span>
+                        <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-white border-t border-gray-100 py-10">
+        <div class="max-w-6xl mx-auto px-4 text-center">
+            <h4 class="font-bold text-slate-900">Media Naranja</h4>
+            <p class="text-xs text-gray-400 mt-1">&copy; 2026 Media Naranja. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        const i18n = {
+            ko: {
+                title_1: "당신의 웹사이트는",
+                title_2: "AI에게 발견되고 있나요?",
+                subtitle: "ChatGPT, Gemini 등 생성형 AI가 귀하의 브랜드를 어떻게 인식하는지 Media Naranja의 기술로 정확하게 진단해드립니다.",
+                btn_analyze: "무료 진단 시작",
+                error_url: "올바른 URL을 입력해주세요.",
+                loading_title: "AI 엔진이 분석 중입니다...",
+                loading_desc: "구조화 데이터, 텍스트 가독성, 신뢰도 데이터를 수집하고 있습니다.",
+                cta_title: "점수를 100점으로 만들고 싶으신가요?",
+                cta_desc: "Media Naranja의 GEO 전문 컨설턴트가 귀하의 사이트를 AI가 가장 좋아하는 구조로 재설계해 드립니다.",
+                cta_btn: "전문가 컨설팅 신청하기",
+                grade_excellent: "Excellent (매우 우수)",
+                grade_average: "Average (보통)",
+                grade_poor: "Poor (개선 필요)",
+                error_server: "서버 응답이 없습니다. 잠시 후 다시 시도해주세요."
+            },
+            en: {
+                title_1: "Is your website",
+                title_2: "Visible to AI?",
+                subtitle: "Diagnose how Generative AI like ChatGPT & Gemini perceive your brand with Media Naranja's technology.",
+                btn_analyze: "Start Free Audit",
+                error_url: "Please enter a valid URL.",
+                loading_title: "AI Engine is analyzing...",
+                loading_desc: "Collecting structured data, text readability, and authority metrics.",
+                cta_title: "Want to hit a 100 score?",
+                cta_desc: "Media Naranja's GEO experts will redesign your site structure to be AI-friendly.",
+                cta_btn: "Request Consulting",
+                grade_excellent: "Excellent",
+                grade_average: "Average",
+                grade_poor: "Poor (Needs Improvement)",
+                error_server: "No response from server. Please try again later."
+            }
+        };
+
+        let currentLang = 'ko';
+
+        function setLanguage(lang) {
+            currentLang = lang;
+            const btnKo = document.getElementById('btn-ko');
+            const btnEn = document.getElementById('btn-en');
+
+            if (lang === 'ko') {
+                btnKo.className = "px-3 py-1 text-xs font-bold rounded-full transition-all bg-white text-slate-900 shadow-sm";
+                btnEn.className = "px-3 py-1 text-xs font-bold rounded-full transition-all text-slate-400 hover:text-slate-600";
+            } else {
+                btnEn.className = "px-3 py-1 text-xs font-bold rounded-full transition-all bg-white text-slate-900 shadow-sm";
+                btnKo.className = "px-3 py-1 text-xs font-bold rounded-full transition-all text-slate-400 hover:text-slate-600";
+            }
+
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (i18n[lang][key]) el.innerHTML = i18n[lang][key];
+            });
+        }
+
+        async function analyzeSite() {
+            const urlInput = document.getElementById('targetUrl');
+            const url = urlInput.value;
+            const errorMsg = document.getElementById('errorMsg');
+            const loadingSection = document.getElementById('loadingSection');
+            const resultSection = document.getElementById('resultSection');
+            const analyzeBtn = document.getElementById('analyzeBtn');
+
+            errorMsg.classList.add('hidden');
+            resultSection.classList.add('hidden');
+
+            if (!url) {
+                errorMsg.classList.remove('hidden');
+                return;
+            }
+
+            loadingSection.classList.remove('hidden');
+            analyzeBtn.disabled = true;
+            analyzeBtn.classList.add('opacity-70', 'cursor-not-allowed');
+
+            try {
+                // [수정 완료] Backend API URL (49.166.98.88:5000/geo_analyze)
+                const response = await fetch('http://49.166.98.88:5000/geo_analyze', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ url: url, lang: currentLang })
+                });
+
+                if (!response.ok) throw new Error('Server Error');
+                const data = await response.json();
+                renderResult(data);
+
+            } catch (error) {
+                console.error(error);
+                errorMsg.querySelector('span').textContent = i18n[currentLang]['error_server'];
+                errorMsg.classList.remove('hidden');
+            } finally {
+                loadingSection.classList.add('hidden');
+                analyzeBtn.disabled = false;
+                analyzeBtn.classList.remove('opacity-70', 'cursor-not-allowed');
+            }
+        }
+
+        function renderResult(data) {
+            const resultSection = document.getElementById('resultSection');
+
+            const circle = document.getElementById('scoreCirclePath');
+            const circumference = 439.8;
+            const offset = circumference - (data.total_score / 100) * circumference;
+
+            document.getElementById('totalScore').innerText = data.total_score;
+            circle.style.strokeDashoffset = offset;
+
+            document.getElementById('summaryText').innerText = data.summary;
+            document.getElementById('scoreTech').innerText = data.technical_score;
+            document.getElementById('scoreContent').innerText = data.content_score;
+            document.getElementById('scoreAuthority').innerText = data.authority_score;
+
+            const gradeLabel = document.getElementById('gradeLabel');
+            let gradeKey = 'grade_poor';
+            let colorClass = 'text-red-500';
+
+            if (data.total_score >= 80) {
+                gradeKey = 'grade_excellent';
+                colorClass = 'text-naranja-500';
+            } else if (data.total_score >= 50) {
+                gradeKey = 'grade_average';
+                colorClass = 'text-yellow-500';
+            }
+
+            gradeLabel.innerText = i18n[currentLang][gradeKey];
+            gradeLabel.className = `text-3xl font-black mb-1 ${colorClass}`;
+
+            resultSection.classList.remove('hidden');
+        }
+
+        setLanguage('ko');
+    </script>
+</body>
+
+</html>
