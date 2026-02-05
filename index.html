@@ -52,10 +52,33 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
+
+        /* 모달 애니메이션 */
+        .modal-enter {
+            opacity: 0;
+            transform: scale(0.95);
+        }
+
+        .modal-enter-active {
+            opacity: 1;
+            transform: scale(1);
+            transition: opacity 0.3s, transform 0.3s;
+        }
+
+        .modal-exit {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .modal-exit-active {
+            opacity: 0;
+            transform: scale(0.95);
+            transition: opacity 0.2s, transform 0.2s;
+        }
     </style>
 </head>
 
-<body class="bg-gray-50 text-slate-800 flex flex-col min-h-screen">
+<body class="bg-gray-50 text-slate-800 flex flex-col min-h-screen relative">
 
     <header class="bg-white/80 backdrop-blur-md border-b border-gray-100 sticky top-0 z-50">
         <div class="max-w-6xl mx-auto px-5 py-4 flex justify-between items-center">
@@ -213,11 +236,12 @@
                         싶으신가요?</h3>
                     <p class="text-gray-400 mb-8 max-w-xl mx-auto" data-i18n="cta_desc">Media Naranja의 GEO 전문 컨설턴트가 귀하의
                         사이트를 AI가 가장 좋아하는 구조로 재설계해 드립니다.</p>
-                    <a href="https://naranja.my/" target="_blank"
+
+                    <button onclick="openModal()"
                         class="inline-flex items-center gap-2 bg-white text-dark-900 hover:bg-gray-100 px-8 py-4 rounded-xl font-bold transition-transform hover:-translate-y-1">
                         <span data-i18n="cta_btn">전문가 컨설팅 신청하기</span>
                         <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
-                    </a>
+                    </button>
                 </div>
             </div>
         </div>
@@ -227,9 +251,80 @@
         <div class="max-w-6xl mx-auto px-4 text-center">
             <h4 class="font-bold text-slate-900"><a href="https://naranja.my/" target="_blank">Media Naranja Inc.</a>
             </h4>
-            <p class="text-xs text-gray-400 mt-1">&copy; 2026 Media Naranja. All rights reserved.</p>
+            <div
+                class="flex flex-col sm:flex-row justify-center items-center gap-2 sm:gap-6 mt-3 text-sm text-gray-600">
+                <a href="tel:070-8027-2306" class="flex items-center gap-2 hover:text-naranja-500 transition-colors">
+                    <i class="fa-solid fa-phone"></i>
+                    <span>070 8027 2306</span>
+                </a>
+                <a href="mailto:naranja@naranja.my"
+                    class="flex items-center gap-2 hover:text-naranja-500 transition-colors">
+                    <i class="fa-solid fa-envelope"></i>
+                    <span>naranja@naranja.my</span>
+                </a>
+            </div>
+            <p class="text-xs text-gray-400 mt-3">&copy; 2026 Media Naranja. All rights reserved.</p>
         </div>
     </footer>
+
+    <div id="consultModal" class="hidden fixed inset-0 z-[60] flex items-center justify-center">
+        <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" onclick="closeModal()"></div>
+
+        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-lg mx-4 relative z-10 p-8 transform transition-all scale-95 opacity-0"
+            id="modalContent">
+            <button onclick="closeModal()"
+                class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition-colors">
+                <i class="fa-solid fa-xmark text-xl"></i>
+            </button>
+
+            <div class="text-center mb-6">
+                <h3 class="text-2xl font-bold text-slate-900 mb-2">전문가 컨설팅 신청</h3>
+                <p class="text-sm text-gray-500">정보를 남겨주시면 담당자가 24시간 내로 연락드립니다.</p>
+            </div>
+
+            <form id="contactForm" onsubmit="submitContactForm(event)" class="space-y-4 text-left">
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 mb-1">조직명 <span
+                            class="text-red-500">*</span></label>
+                    <input type="text" name="organization" required placeholder="예: (주)메디아나랑하"
+                        class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-naranja-500 focus:ring-2 focus:ring-naranja-100 outline-none text-sm transition-all">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 mb-1">이메일 주소 <span
+                            class="text-red-500">*</span></label>
+                    <input type="email" name="email" required placeholder="name@company.com"
+                        class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-naranja-500 focus:ring-2 focus:ring-naranja-100 outline-none text-sm transition-all">
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 mb-1">담당자명</label>
+                        <input type="text" name="name" placeholder="홍길동"
+                            class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-naranja-500 focus:ring-2 focus:ring-naranja-100 outline-none text-sm transition-all">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-700 mb-1">전화번호</label>
+                        <input type="tel" name="phone" placeholder="010-1234-5678"
+                            class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-naranja-500 focus:ring-2 focus:ring-naranja-100 outline-none text-sm transition-all">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-bold text-slate-700 mb-1">문의사항 <span
+                            class="text-red-500">*</span></label>
+                    <textarea name="message" required rows="3" placeholder="어떤 점이 고민이신가요?"
+                        class="w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-naranja-500 focus:ring-2 focus:ring-naranja-100 outline-none text-sm transition-all resize-none"></textarea>
+                </div>
+
+                <button type="submit" id="submitBtn"
+                    class="w-full bg-naranja-500 hover:bg-naranja-600 text-white font-bold py-3.5 rounded-xl transition-all shadow-lg shadow-naranja-500/20 active:scale-95 flex justify-center items-center gap-2">
+                    <span>문의하기</span>
+                    <i class="fa-regular fa-paper-plane"></i>
+                </button>
+            </form>
+        </div>
+    </div>
 
     <script>
         const i18n = {
@@ -273,7 +368,6 @@
             currentLang = lang;
             const btnKo = document.getElementById('btn-ko');
             const btnEn = document.getElementById('btn-en');
-
             if (lang === 'ko') {
                 btnKo.className = "px-3 py-1 text-xs font-bold rounded-full transition-all bg-white text-slate-900 shadow-sm";
                 btnEn.className = "px-3 py-1 text-xs font-bold rounded-full transition-all text-slate-400 hover:text-slate-600";
@@ -281,7 +375,6 @@
                 btnEn.className = "px-3 py-1 text-xs font-bold rounded-full transition-all bg-white text-slate-900 shadow-sm";
                 btnKo.className = "px-3 py-1 text-xs font-bold rounded-full transition-all text-slate-400 hover:text-slate-600";
             }
-
             document.querySelectorAll('[data-i18n]').forEach(el => {
                 const key = el.getAttribute('data-i18n');
                 if (i18n[lang][key]) el.innerHTML = i18n[lang][key];
@@ -290,7 +383,7 @@
 
         async function analyzeSite() {
             const urlInput = document.getElementById('targetUrl');
-            const url = urlInput.value.trim(); // 공백 제거
+            const url = urlInput.value.trim();
             const errorMsg = document.getElementById('errorMsg');
             const loadingSection = document.getElementById('loadingSection');
             const resultSection = document.getElementById('resultSection');
@@ -299,10 +392,7 @@
             errorMsg.classList.add('hidden');
             resultSection.classList.add('hidden');
 
-            // [변경 사항] ~~.~~ 형식이 맞는지 정규식으로 확인
-            // 문자열 + 점(.) + 문자열 형태가 포함되어 있는지 체크
             const domainPattern = /.+\..+/;
-
             if (!url || !domainPattern.test(url)) {
                 errorMsg.querySelector('span').textContent = i18n[currentLang]['error_url'];
                 errorMsg.classList.remove('hidden');
@@ -314,7 +404,7 @@
             analyzeBtn.classList.add('opacity-70', 'cursor-not-allowed');
 
             try {
-                // Backend API URL 
+                // Backend API URL
                 const response = await fetch('https://chatbot.naranja.my/geo_analyze', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -338,14 +428,12 @@
 
         function renderResult(data) {
             const resultSection = document.getElementById('resultSection');
-
             const circle = document.getElementById('scoreCirclePath');
             const circumference = 439.8;
             const offset = circumference - (data.total_score / 100) * circumference;
 
             document.getElementById('totalScore').innerText = data.total_score;
             circle.style.strokeDashoffset = offset;
-
             document.getElementById('summaryText').innerText = data.summary;
             document.getElementById('scoreTech').innerText = data.technical_score;
             document.getElementById('scoreContent').innerText = data.content_score;
@@ -354,7 +442,6 @@
             const gradeLabel = document.getElementById('gradeLabel');
             let gradeKey = 'grade_poor';
             let colorClass = 'text-red-500';
-
             if (data.total_score >= 80) {
                 gradeKey = 'grade_excellent';
                 colorClass = 'text-naranja-500';
@@ -362,11 +449,69 @@
                 gradeKey = 'grade_average';
                 colorClass = 'text-yellow-500';
             }
-
             gradeLabel.innerText = i18n[currentLang][gradeKey];
             gradeLabel.className = `text-3xl font-black mb-1 ${colorClass}`;
-
             resultSection.classList.remove('hidden');
+        }
+
+        // --- [Modal Logic] ---
+        const modal = document.getElementById('consultModal');
+        const modalContent = document.getElementById('modalContent');
+
+        function openModal() {
+            modal.classList.remove('hidden');
+            // Slight delay for animation
+            setTimeout(() => {
+                modalContent.classList.remove('scale-95', 'opacity-0');
+                modalContent.classList.add('scale-100', 'opacity-100');
+            }, 10);
+        }
+
+        function closeModal() {
+            modalContent.classList.remove('scale-100', 'opacity-100');
+            modalContent.classList.add('scale-95', 'opacity-0');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                document.getElementById('contactForm').reset(); // 폼 초기화
+            }, 200);
+        }
+
+        // Form Submit
+        async function submitContactForm(e) {
+            e.preventDefault();
+            const form = e.target;
+            const btn = document.getElementById('submitBtn');
+            const originalBtnText = btn.innerHTML;
+
+            // Loading state
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> 전송 중...';
+
+            // Data gathering
+            const formData = new FormData(form);
+            const jsonData = Object.fromEntries(formData.entries());
+
+            try {
+                // geo_contact API 호출
+                const response = await fetch('https://chatbot.naranja.my/geo_contact', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(jsonData)
+                });
+
+                if (response.ok) {
+                    alert("성공적으로 접수되었습니다. 곧 연락드리겠습니다!");
+                    closeModal();
+                } else {
+                    alert("전송에 실패했습니다. 잠시 후 다시 시도해주세요.");
+                }
+            } catch (error) {
+                console.error(error);
+                alert("서버 오류가 발생했습니다.");
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = originalBtnText;
+            }
         }
 
         setLanguage('ko');
