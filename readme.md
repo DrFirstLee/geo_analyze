@@ -34,22 +34,6 @@ The dashboard visualizes metrics such as **Technical Structure (JSON-LD)**, **Co
 - **Icons:** FontAwesome
 - **Fonts:** Pretendard (Web Font)
 
-### 🚀 Getting Started
-This project is a static web application. No build process is required.
-
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/your-username/media-naranja-geo.git
-   ```
-
-2. **Open the file**
-   Simply open `index.html` in your modern web browser.
-
-3. **Backend Connection**
-   By default, the frontend is configured to connect to the Media Naranja API server.
-   - API Endpoint: `http://0000/geo_analyze`
-   - To change the backend URL, modify the `fetch` URL in the `analyzeSite()` function inside `index.html`.
-
 ### 📂 File Structure
 ```text
 .
