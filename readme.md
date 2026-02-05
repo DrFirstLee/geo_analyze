@@ -38,24 +38,24 @@ The dashboard visualizes metrics such as **Technical Structure (JSON-LD)**, **Co
 This project is a static web application. No build process is required.
 
 1. **Clone the repository**
-   $$$bash
+   ```bash
    git clone https://github.com/your-username/media-naranja-geo.git
-   $$$
+   ```
 
 2. **Open the file**
    Simply open `index.html` in your modern web browser.
 
 3. **Backend Connection**
    By default, the frontend is configured to connect to the Media Naranja API server.
-   - API Endpoint: `http://49.166.98.88:5000/geo_analyze`
+   - API Endpoint: `http://0000/geo_analyze`
    - To change the backend URL, modify the `fetch` URL in the `analyzeSite()` function inside `index.html`.
 
 ### 📂 File Structure
-$$$text
+```text
 .
 ├── index.html       # Main application file (Frontend)
 └── README.md        # Project documentation
-$$$
+```
 
 ---
 
@@ -79,28 +79,12 @@ $$$
 - **Icons:** FontAwesome
 - **Fonts:** Pretendard (프리텐다드)
 
-### 🚀 실행 방법
-이 프로젝트는 정적 웹 애플리케이션으로, 별도의 빌드 과정이 필요 없습니다.
-
-1. **리포지토리 클론**
-   $$$bash
-   git clone https://github.com/your-username/media-naranja-geo.git
-   $$$
-
-2. **파일 실행**
-   `index.html` 파일을 브라우저에서 바로 실행하세요.
-
-3. **백엔드 연동**
-   기본적으로 Media Naranja 테스트 서버와 통신하도록 설정되어 있습니다.
-   - API 엔드포인트: `http://49.166.98.88:5000/geo_analyze`
-   - 백엔드 주소를 변경하려면 `index.html` 내부 스크립트의 `analyzeSite()` 함수 내 `fetch` 주소를 수정하세요.
-
 ### 📂 폴더 구조
-$$$text
+```text
 .
 ├── index.html       # 메인 애플리케이션 (프론트엔드)
 └── README.md        # 프로젝트 설명서
-$$$
+```
 
 ---
 
