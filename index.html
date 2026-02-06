@@ -176,7 +176,15 @@
             </p>
 
             <div
-                class="bg-white p-2 rounded-2xl shadow-xl shadow-gray-200/50 border border-gray-100 flex flex-col sm:flex-row gap-2 relative group focus-within:ring-4 focus-within:ring-naranja-500/10 transition-all">
+                class="bg-white p-2 rounded-2xl shadow-xl shadow-gray-200/50 border border-gray-100 flex flex-col gap-2 relative group focus-within:ring-4 focus-within:ring-naranja-500/10 transition-all">
+                <div class="flex-grow relative">
+                    <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-gray-400">
+                        <i class="fa-solid fa-building"></i>
+                    </div>
+                    <input type="text" id="companyName" placeholder="회사명/브랜드명 (예: 메디아나랑하)"
+                        class="w-full pl-11 pr-4 py-4 rounded-xl bg-transparent border-none outline-none text-slate-800 placeholder-gray-300 font-medium h-full"
+                        required>
+                </div>
                 <div class="flex-grow relative">
                     <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-gray-400">
                         <i class="fa-solid fa-globe"></i>
@@ -186,7 +194,7 @@
                         required>
                 </div>
                 <button onclick="analyzeSite()" id="analyzeBtn"
-                    class="bg-naranja-500 hover:bg-naranja-600 text-white font-bold px-8 py-4 rounded-xl transition-all shadow-lg shadow-naranja-500/20 active:scale-95 flex items-center justify-center gap-2 whitespace-nowrap w-full sm:w-auto">
+                    class="bg-naranja-500 hover:bg-naranja-600 text-white font-bold px-8 py-4 rounded-xl transition-all shadow-lg shadow-naranja-500/20 active:scale-95 flex items-center justify-center gap-2 whitespace-nowrap w-full">
                     <span data-i18n="btn_analyze">무료 진단 시작</span>
                     <i class="fa-solid fa-arrow-right-long"></i>
                 </button>
@@ -266,89 +274,219 @@
         </div>
 
         <div id="resultSection" class="hidden w-full fade-in">
-            <div class="bg-white rounded-3xl shadow-xl border border-gray-100 overflow-hidden mb-8 relative">
-                <div class="absolute top-0 w-full h-1 bg-gradient-to-r from-naranja-400 to-naranja-600"></div>
-                <div class="p-6 md:p-10 flex flex-col md:flex-row items-center gap-8 md:gap-10">
-                    <div class="relative w-40 h-40 flex-shrink-0">
-                        <svg class="w-full h-full transform -rotate-90">
-                            <circle cx="80" cy="80" r="70" stroke="#ffedd5" stroke-width="12" fill="none" />
-                            <circle id="scoreCirclePath" cx="80" cy="80" r="70" stroke="#f97316" stroke-width="12"
-                                fill="none" stroke-dasharray="439.8" stroke-dashoffset="439.8" stroke-linecap="round"
-                                class="transition-all duration-1500 ease-out" />
-                        </svg>
-                        <div class="absolute inset-0 flex flex-col items-center justify-center">
-                            <span class="text-4xl font-black text-slate-800 tracking-tighter" id="totalScore">0</span>
-                            <span class="text-xs text-gray-400 font-bold mt-1">GEO SCORE</span>
-                        </div>
+            <!-- Overall Review Section -->
+            <div
+                class="mb-16 bg-gradient-to-br from-slate-900 to-slate-800 rounded-3xl p-8 md:p-10 shadow-2xl text-white relative overflow-hidden">
+                <div
+                    class="absolute top-0 right-0 -mr-20 -mt-20 w-80 h-80 bg-naranja-500 rounded-full blur-[100px] opacity-20">
+                </div>
+                <div class="relative z-10 flex flex-col md:flex-row gap-8 items-start">
+                    <div class="flex-shrink-0 text-center md:text-left">
+                        <p class="text-naranja-400 font-bold uppercase tracking-wider text-sm mb-2">GEO Total Score</p>
+                        <div class="text-6xl font-black tracking-tighter" id="overallScore">-</div>
                     </div>
-                    <div class="flex-1 text-center md:text-left">
-                        <div class="mb-4">
-                            <h3 class="text-3xl font-bold text-slate-900 mb-1" id="gradeLabel">-</h3>
-                            <p class="text-sm text-gray-400 font-medium uppercase tracking-wide">AI Optimization Status
-                            </p>
+                    <div class="flex-grow">
+                        <h3 class="text-2xl font-bold mb-4 flex items-center gap-2">
+                            <i class="fa-solid fa-chart-line text-naranja-400"></i>
+                            <span data-i18n="overall_title">종합 분석 결과</span>
+                        </h3>
+                        <p id="overallReview" class="text-gray-300 leading-relaxed text-lg font-medium"></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Internal Analysis -->
+            <div class="mb-16">
+                <h3 class="text-2xl font-bold text-slate-900 mb-6 flex items-center gap-2">
+                    <i class="fa-solid fa-laptop-code text-naranja-500"></i>
+                    <span data-i18n="section_internal">내부 최적화 진단 (On-Site)</span>
+                </h3>
+
+                <div class="bg-white rounded-3xl shadow-xl border border-gray-100 overflow-hidden mb-8 relative">
+                    <div class="absolute top-0 w-full h-1 bg-gradient-to-r from-naranja-400 to-naranja-600"></div>
+                    <div class="p-6 md:p-10 flex flex-col md:flex-row items-center gap-8 md:gap-10">
+                        <div class="relative w-40 h-40 flex-shrink-0">
+                            <svg class="w-full h-full transform -rotate-90">
+                                <circle cx="80" cy="80" r="70" stroke="#ffedd5" stroke-width="12" fill="none" />
+                                <circle id="scoreCirclePath" cx="80" cy="80" r="70" stroke="#f97316" stroke-width="12"
+                                    fill="none" stroke-dasharray="439.8" stroke-dashoffset="439.8"
+                                    stroke-linecap="round" class="transition-all duration-1500 ease-out" />
+                            </svg>
+                            <div class="absolute inset-0 flex flex-col items-center justify-center">
+                                <span class="text-4xl font-black text-slate-800 tracking-tighter"
+                                    id="totalScore">0</span>
+                                <span class="text-xs text-gray-400 font-bold mt-1">GEO SCORE</span>
+                            </div>
                         </div>
-                        <div class="bg-gray-50 rounded-2xl p-5 border border-gray-100 text-left">
-                            <div class="flex items-start gap-3">
-                                <i class="fa-solid fa-quote-left text-naranja-300 text-xl"></i>
-                                <p id="summaryText" class="text-slate-600 leading-relaxed font-medium"></p>
+                        <div class="flex-1 text-center md:text-left">
+                            <div class="mb-4">
+                                <h3 class="text-3xl font-bold text-slate-900 mb-1" id="gradeLabel">-</h3>
+                                <p class="text-sm text-gray-400 font-medium uppercase tracking-wide">Internal
+                                    Optimization Status
+                                </p>
+                            </div>
+                            <div class="bg-gray-50 rounded-2xl p-5 border border-gray-100 text-left">
+                                <div class="flex items-start gap-3">
+                                    <i class="fa-solid fa-quote-left text-naranja-300 text-xl"></i>
+                                    <p id="summaryText" class="text-slate-600 leading-relaxed font-medium"></p>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <div
+                        class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-all group">
+                        <div class="flex justify-between items-center mb-4">
+                            <div
+                                class="p-3 bg-blue-50 text-blue-600 rounded-xl group-hover:bg-blue-600 group-hover:text-white transition-colors">
+                                <i class="fa-solid fa-code"></i>
+                            </div>
+                            <span class="text-2xl font-bold text-slate-900" id="scoreTech">-</span>
+                        </div>
+                        <h4 class="font-bold text-slate-700">Technical</h4>
+                        <p class="text-xs text-gray-400 mt-1">JSON-LD, Robots.txt</p>
+                    </div>
+                    <div
+                        class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-all group">
+                        <div class="flex justify-between items-center mb-4">
+                            <div
+                                class="p-3 bg-purple-50 text-purple-600 rounded-xl group-hover:bg-purple-600 group-hover:text-white transition-colors">
+                                <i class="fa-solid fa-align-left"></i>
+                            </div>
+                            <span class="text-2xl font-bold text-slate-900" id="scoreContent">-</span>
+                        </div>
+                        <h4 class="font-bold text-slate-700">Content Clarity</h4>
+                        <p class="text-xs text-gray-400 mt-1">Structure, Readability</p>
+                    </div>
+                    <div
+                        class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-all group">
+                        <div class="flex justify-between items-center mb-4">
+                            <div
+                                class="p-3 bg-naranja-50 text-naranja-600 rounded-xl group-hover:bg-naranja-500 group-hover:text-white transition-colors">
+                                <i class="fa-solid fa-certificate"></i>
+                            </div>
+                            <span class="text-2xl font-bold text-slate-900" id="scoreAuthority">-</span>
+                        </div>
+                        <h4 class="font-bold text-slate-700">Authority</h4>
+                        <p class="text-xs text-gray-400 mt-1">Backlinks, Citations</p>
+                    </div>
+                    <div
+                        class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-all group">
+                        <div class="flex justify-between items-center mb-4">
+                            <div
+                                class="p-3 bg-teal-50 text-teal-600 rounded-xl group-hover:bg-teal-600 group-hover:text-white transition-colors">
+                                <i class="fa-solid fa-robot"></i>
+                            </div>
+                            <span class="text-2xl font-bold text-slate-900" id="scoreAiReadability">-</span>
+                        </div>
+                        <h4 class="font-bold text-slate-700">AI Readability</h4>
+                        <p class="text-xs text-gray-400 mt-1">LLM Parsing Friendly</p>
+                    </div>
+                </div>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-12">
-                <div
-                    class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-all group">
-                    <div class="flex justify-between items-center mb-4">
-                        <div
-                            class="p-3 bg-blue-50 text-blue-600 rounded-xl group-hover:bg-blue-600 group-hover:text-white transition-colors">
-                            <i class="fa-solid fa-code"></i>
+            <!-- Outside Analysis -->
+            <div class="mb-12">
+                <h3 class="text-2xl font-bold text-slate-900 mb-6 flex items-center gap-2">
+                    <i class="fa-solid fa-globe text-blue-500"></i>
+                    <span data-i18n="section_external">외부 평판 진단 (Off-Site)</span>
+                </h3>
+
+                <div class="bg-white rounded-3xl shadow-xl border border-gray-100 overflow-hidden mb-8 relative">
+                    <div class="absolute top-0 w-full h-1 bg-gradient-to-r from-blue-400 to-blue-600"></div>
+                    <div class="p-6 md:p-10 flex flex-col md:flex-row items-center gap-8 md:gap-10">
+                        <div class="relative w-40 h-40 flex-shrink-0">
+                            <svg class="w-full h-full transform -rotate-90">
+                                <circle cx="80" cy="80" r="70" stroke="#eff6ff" stroke-width="12" fill="none" />
+                                <circle id="outsideScoreCirclePath" cx="80" cy="80" r="70" stroke="#3b82f6"
+                                    stroke-width="12" fill="none" stroke-dasharray="439.8" stroke-dashoffset="439.8"
+                                    stroke-linecap="round" class="transition-all duration-1500 ease-out" />
+                            </svg>
+                            <div class="absolute inset-0 flex flex-col items-center justify-center">
+                                <span class="text-4xl font-black text-slate-800 tracking-tighter"
+                                    id="outsideTotalScore">0</span>
+                                <span class="text-xs text-gray-400 font-bold mt-1">REPUTATION</span>
+                            </div>
                         </div>
-                        <span class="text-2xl font-bold text-slate-900" id="scoreTech">-</span>
+                        <div class="flex-1 text-center md:text-left">
+                            <div class="mb-4">
+                                <h3 class="text-3xl font-bold text-slate-900 mb-1" id="outsideGradeLabel">-</h3>
+                                <p class="text-sm text-gray-400 font-medium uppercase tracking-wide">External Reputation
+                                    Status
+                                </p>
+                            </div>
+                            <div class="bg-gray-50 rounded-2xl p-5 border border-gray-100 text-left">
+                                <div class="flex items-start gap-3">
+                                    <i class="fa-solid fa-comment-dots text-blue-300 text-xl"></i>
+                                    <p id="outsideSummaryText" class="text-slate-600 leading-relaxed font-medium"></p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <h4 class="font-bold text-slate-700">Technical</h4>
-                    <p class="text-xs text-gray-400 mt-1">JSON-LD, Robots.txt</p>
                 </div>
-                <div
-                    class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-all group">
-                    <div class="flex justify-between items-center mb-4">
-                        <div
-                            class="p-3 bg-purple-50 text-purple-600 rounded-xl group-hover:bg-purple-600 group-hover:text-white transition-colors">
-                            <i class="fa-solid fa-align-left"></i>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
+                    <!-- Media Mention -->
+                    <div
+                        class="bg-white p-5 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-all">
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="text-3xl font-bold text-slate-900" id="scoreMedia">-</span>
+                            <div class="p-2 bg-indigo-50 text-indigo-600 rounded-lg">
+                                <i class="fa-solid fa-newspaper"></i>
+                            </div>
                         </div>
-                        <span class="text-2xl font-bold text-slate-900" id="scoreContent">-</span>
+                        <h4 class="font-bold text-slate-700 text-sm" data-i18n="out_media">언론/미디어</h4>
                     </div>
-                    <h4 class="font-bold text-slate-700">Content Clarity</h4>
-                    <p class="text-xs text-gray-400 mt-1">Structure, Readability</p>
-                </div>
-                <div
-                    class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-all group">
-                    <div class="flex justify-between items-center mb-4">
-                        <div
-                            class="p-3 bg-naranja-50 text-naranja-600 rounded-xl group-hover:bg-naranja-500 group-hover:text-white transition-colors">
-                            <i class="fa-solid fa-certificate"></i>
+                    <!-- Review Sentiment -->
+                    <div
+                        class="bg-white p-5 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-all">
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="text-3xl font-bold text-slate-900" id="scoreReview">-</span>
+                            <div class="p-2 bg-red-50 text-red-500 rounded-lg">
+                                <i class="fa-solid fa-heart"></i>
+                            </div>
                         </div>
-                        <span class="text-2xl font-bold text-slate-900" id="scoreAuthority">-</span>
+                        <h4 class="font-bold text-slate-700 text-sm" data-i18n="out_review">리뷰 감성</h4>
                     </div>
-                    <h4 class="font-bold text-slate-700">Authority</h4>
-                    <p class="text-xs text-gray-400 mt-1">Backlinks, Citations</p>
-                </div>
-                <!-- AI Readability -->
-                <div
-                    class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-all group">
-                    <div class="flex justify-between items-center mb-4">
-                        <div
-                            class="p-3 bg-teal-50 text-teal-600 rounded-xl group-hover:bg-teal-600 group-hover:text-white transition-colors">
-                            <i class="fa-solid fa-robot"></i>
+                    <!-- LLM Score -->
+                    <div
+                        class="bg-white p-5 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-all">
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="text-3xl font-bold text-slate-900" id="scoreLlm">-</span>
+                            <div class="p-2 bg-green-50 text-green-600 rounded-lg">
+                                <i class="fa-solid fa-brain"></i>
+                            </div>
                         </div>
-                        <span class="text-2xl font-bold text-slate-900" id="scoreAiReadability">-</span>
+                        <h4 class="font-bold text-slate-700 text-sm" data-i18n="out_llm">LLM 인지도</h4>
                     </div>
-                    <h4 class="font-bold text-slate-700">AI Readability</h4>
-                    <p class="text-xs text-gray-400 mt-1">LLM Parsing Friendly</p>
+                    <!-- Entity Authority -->
+                    <div
+                        class="bg-white p-5 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-all">
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="text-3xl font-bold text-slate-900" id="scoreEntity">-</span>
+                            <div class="p-2 bg-yellow-50 text-yellow-600 rounded-lg">
+                                <i class="fa-solid fa-shield-halved"></i>
+                            </div>
+                        </div>
+                        <h4 class="font-bold text-slate-700 text-sm" data-i18n="out_entity">엔티티 권위</h4>
+                    </div>
+                    <!-- Brand Consistency -->
+                    <div
+                        class="bg-white p-5 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-all">
+                        <div class="flex justify-between items-center mb-3">
+                            <span class="text-3xl font-bold text-slate-900" id="scoreBrand">-</span>
+                            <div class="p-2 bg-slate-50 text-slate-600 rounded-lg">
+                                <i class="fa-solid fa-layer-group"></i>
+                            </div>
+                        </div>
+                        <h4 class="font-bold text-slate-700 text-sm" data-i18n="out_brand">브랜드 일관성</h4>
+                    </div>
                 </div>
             </div>
 
+            <!-- CTA -->
             <div class="bg-dark-900 rounded-3xl p-8 md:p-12 text-center relative overflow-hidden">
                 <div
                     class="absolute top-0 right-0 -mr-10 -mt-10 w-64 h-64 bg-naranja-500 rounded-full blur-3xl opacity-20">
@@ -610,9 +748,12 @@
                 title_2: "AI에게 발견되고 있나요?",
                 subtitle: "ChatGPT, Gemini 등 생성형 AI가 귀하의 브랜드를 어떻게 인식하는지 Media Naranja의 기술로 정확하게 진단해드립니다.",
                 btn_analyze: "무료 진단 시작",
+                btn_analyze: "무료 진단 시작",
+                placeholder_company: "회사명/브랜드명 (예: 메디아나랑하)",
+                error_company: "회사명 또는 브랜드명을 입력해주세요.",
                 error_url: "올바른 도메인을 입력해주세요 (예: example.com)",
-                loading_title: "AI 엔진이 분석 중입니다...(최대 2분이 소요됩니다)",
-                loading_desc: "구조화 데이터, 텍스트 가독성, 신뢰도 데이터를 수집하고 있습니다.",
+                loading_title: "AI 엔진이 분석 중입니다...(최대 5분이 소요됩니다)",
+                loading_desc: "내부 최적화(On-Site) 및 외부 평판(Off-Site) 데이터를 종합 분석하고 있습니다.",
                 cta_title: "점수를 100점으로 만들고 싶으신가요?",
                 cta_desc: "Media Naranja의 GEO 전문 컨설턴트가 귀하의 사이트를 AI가 가장 좋아하는 구조로 재설계해 드립니다.",
                 cta_btn: "전문가 컨설팅 신청하기",
@@ -660,16 +801,29 @@
                 p_enterprise_f2: "브랜드 팩트 시트(Brand Fact Sheet) 구축 및 배포",
                 p_enterprise_f3: "경쟁사 비교 우위 콘텐츠 구조화",
                 p_enterprise_f4: "월간 정기 리포트 및 미팅",
-                btn_contact_us: "Contact Us"
+                btn_contact_us: "Contact Us",
+                section_internal: "내부 최적화 진단 (On-Site)",
+                section_external: "외부 평판 진단 (Off-Site)",
+                out_media: "언론/미디어 언급",
+                out_review: "고객 리뷰 감성",
+                out_llm: "LLM 인지도",
+                out_entity: "엔티티 권위(신뢰)",
+                out_llm: "LLM 인지도",
+                out_entity: "엔티티 권위(신뢰)",
+                out_brand: "브랜드 메시지 일관성",
+                overall_title: "종합 분석 결과"
             },
             en: {
                 title_1: "Is your website",
                 title_2: "Visible to AI?",
                 subtitle: "Diagnose how Generative AI like ChatGPT & Gemini perceive your brand with Media Naranja's technology.",
                 btn_analyze: "Start Free Audit",
+                btn_analyze: "Start Free Audit",
+                placeholder_company: "Company/Brand Name",
+                error_company: "Please enter your company or brand name.",
                 error_url: "Please enter a valid domain (e.g. example.com)",
-                loading_title: "AI Engine is analyzing...(Max 2 minutes)",
-                loading_desc: "Collecting structured data, text readability, and authority metrics.",
+                loading_title: "AI Engine is analyzing...(Max 5 minutes)",
+                loading_desc: "Analyzing both internal site structure and external reputation (Media, Reviews) comprehensively.",
                 cta_title: "Want to hit a 100 score?",
                 cta_desc: "Media Naranja's GEO experts will redesign your site structure to be AI-friendly.",
                 cta_btn: "Request Consulting",
@@ -717,7 +871,17 @@
                 p_enterprise_f2: "Brand Fact Sheet Construction",
                 p_enterprise_f3: "Competitor Advantage Content Structuring",
                 p_enterprise_f4: "Monthly Reports & Meetings",
-                btn_contact_us: "Contact Us"
+                btn_contact_us: "Contact Us",
+                section_internal: "Internal Assessment (On-Site)",
+                section_external: "External Assessment (Off-Site)",
+                out_media: "Media Mentions",
+                out_review: "Review Sentiment",
+                out_llm: "LLM Awareness",
+                out_entity: "Entity Authority",
+                out_llm: "LLM Awareness",
+                out_entity: "Entity Authority",
+                out_brand: "Brand Consistency",
+                overall_title: "Overall Analysis"
             }
         };
 
@@ -738,9 +902,12 @@
                 const key = el.getAttribute('data-i18n');
                 if (i18n[lang][key]) el.innerHTML = i18n[lang][key];
             });
+            document.getElementById('companyName').placeholder = i18n[lang]['placeholder_company'];
         }
 
         async function analyzeSite() {
+            const companyNameInput = document.getElementById('companyName');
+            const companyName = companyNameInput.value.trim();
             const urlInput = document.getElementById('targetUrl');
             const url = urlInput.value.trim();
             const errorMsg = document.getElementById('errorMsg');
@@ -753,7 +920,14 @@
             errorMsg.classList.add('hidden');
             resultSection.classList.add('hidden');
             if (infoSection) infoSection.classList.add('hidden'); // Hide info section on analyze
+            if (infoSection) infoSection.classList.add('hidden'); // Hide info section on analyze
             if (pricingSection) pricingSection.classList.add('hidden'); // Hide pricing section on analyze
+
+            if (!companyName) {
+                errorMsg.querySelector('span').textContent = i18n[currentLang]['error_company'];
+                errorMsg.classList.remove('hidden');
+                return;
+            }
 
             const domainPattern = /.+\..+/;
             if (!url || !domainPattern.test(url)) {
@@ -771,18 +945,25 @@
                 const response = await fetch('https://chatbot.naranja.my/geo_analyze', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ url: url, lang: currentLang })
+                    body: JSON.stringify({ url: url, company_name: companyName, lang: currentLang })
                 });
 
                 if (!response.ok) throw new Error('Server Error');
                 const data = await response.json();
 
+                const site = data.site_analysis || {};
+                const outside = data.outside_analysis || {};
+
                 // Store hidden data for contact form
                 document.getElementById('hidden_session_id').value = data.analysis_session_id || '';
-                document.getElementById('hidden_summary_internal').value = data.summary_internal || '';
-                document.getElementById('hidden_summary').value = data.summary || '';
-                document.getElementById('hidden_total_score').value = data.total_score || 0;
-                document.getElementById('hidden_site_description').value = data.site_description || '';
+
+                // Combine internal summaries for the consultant
+                const combinedInternal = `[Overall Internal]\n${data.overall_review_internal || '-'}\n\n[Site Analysis]\n${site.summary_internal || '-'}\n\n[Outside Analysis]\n${outside.outside_summary || '-'}`;
+                document.getElementById('hidden_summary_internal').value = combinedInternal;
+
+                document.getElementById('hidden_summary').value = data.overall_review || site.summary || '';
+                document.getElementById('hidden_total_score').value = data.overall_score || site.total_score || 0;
+                document.getElementById('hidden_site_description').value = site.site_description || '';
 
                 renderResult(data);
 
@@ -800,31 +981,41 @@
         function renderResult(data) {
             const resultSection = document.getElementById('resultSection');
             const pricingSection = document.getElementById('pricingSection');
-            const circle = document.getElementById('scoreCirclePath');
-            const circumference = 439.8;
-            const offset = circumference - (data.total_score / 100) * circumference;
 
-            document.getElementById('totalScore').innerText = data.total_score;
+            // 1. Overall Section
+            document.getElementById('overallScore').innerText = data.overall_score || 0;
+            document.getElementById('overallReview').innerText = data.overall_review || '';
+
+            // 2. Internal Section
+            const circle = document.getElementById('scoreCirclePath');
+
+            // Use site_analysis for the main display
+            const site = data.site_analysis || {};
+
+            const circumference = 439.8;
+            const offset = circumference - ((site.total_score || 0) / 100) * circumference;
+
+            document.getElementById('totalScore').innerText = site.total_score || 0;
             circle.style.strokeDashoffset = offset;
 
             // Show site description + summary
-            const summaryHtml = `<div class="mb-2 font-bold text-slate-800">${data.site_description || ''}</div>
-                                 <div>${data.summary}</div>`;
+            const summaryHtml = `<div class="mb-2 font-bold text-slate-800">${site.site_description || ''}</div>
+                                 <div>${site.summary || ''}</div>`;
             document.getElementById('summaryText').innerHTML = summaryHtml;
 
             // Update scores with new keys
-            document.getElementById('scoreTech').innerText = data.technical_score;
-            document.getElementById('scoreContent').innerText = data.content_score;
-            document.getElementById('scoreAuthority').innerText = data.authority_score;
-            document.getElementById('scoreAiReadability').innerText = data.ai_readability_score;
+            document.getElementById('scoreTech').innerText = site.tech_score || 0;
+            document.getElementById('scoreContent').innerText = site.content_score || 0;
+            document.getElementById('scoreAuthority').innerText = site.auth_score || 0;
+            document.getElementById('scoreAiReadability').innerText = site.ai_readability_score || 0;
 
             const gradeLabel = document.getElementById('gradeLabel');
             let gradeKey = 'grade_poor';
             let colorClass = 'text-red-500';
-            if (data.total_score >= 80) {
+            if ((site.total_score || 0) >= 80) {
                 gradeKey = 'grade_excellent';
                 colorClass = 'text-naranja-500';
-            } else if (data.total_score >= 50) {
+            } else if ((site.total_score || 0) >= 50) {
                 gradeKey = 'grade_average';
                 colorClass = 'text-yellow-500';
             }
@@ -832,6 +1023,36 @@
             gradeLabel.className = `text-3xl font-black mb-1 ${colorClass}`;
             resultSection.classList.remove('hidden');
             if (pricingSection) pricingSection.classList.remove('hidden');
+
+            // --- OFF-SITE (OUTSIDE) ---
+            const outside = data.outside_analysis || {};
+            const circleOutside = document.getElementById('outsideScoreCirclePath');
+            const offsetOutside = circumference - ((outside.total_score || 0) / 100) * circumference;
+
+            document.getElementById('outsideTotalScore').innerText = outside.total_score || 0;
+            if (circleOutside) circleOutside.style.strokeDashoffset = offsetOutside;
+
+            document.getElementById('outsideSummaryText').innerHTML = outside.outside_summary || '';
+
+            // Outside Scores
+            document.getElementById('scoreMedia').innerText = outside.media_mention_score || 0;
+            document.getElementById('scoreReview').innerText = outside.review_sentiment_score || 0;
+            document.getElementById('scoreLlm').innerText = outside.llm_score || 0;
+            document.getElementById('scoreEntity').innerText = outside.entity_authority_score || 0;
+            document.getElementById('scoreBrand').innerText = outside.brand_consistency_score || 0;
+
+            // Outside Grade
+            const outGradeLabel = document.getElementById('outsideGradeLabel');
+            let outGradeKey = 'grade_poor';
+            let outColorClass = 'text-red-500';
+            const outScore = outside.total_score || 0;
+            if (outScore >= 80) { outGradeKey = 'grade_excellent'; outColorClass = 'text-blue-500'; }
+            else if (outScore >= 50) { outGradeKey = 'grade_average'; outColorClass = 'text-yellow-500'; }
+
+            if (outGradeLabel) {
+                outGradeLabel.innerText = i18n[currentLang][outGradeKey];
+                outGradeLabel.className = `text-3xl font-black mb-1 ${outColorClass}`;
+            }
         }
 
         // --- [Modal Logic] ---
