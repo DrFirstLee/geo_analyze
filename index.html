@@ -4,14 +4,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GEO 점수 진단 - AI 검색 최적화(GEO) 무료 점수 확인</title>
+    <title>GEO 점수 무료 진단 | AI 검색 최적화·ChatGPT 노출 분석 - Media Naranja</title>
 
     <!-- SEO Meta Tags -->
     <meta name="description"
-        content="내 웹사이트의 GEO 점수는 얼마일까요? ChatGPT, Gemini, 퍼플렉시티 등 AI 검색 엔진 최적화(GEO) 상태를 무료로 진단하고 점수를 확인하세요.">
+        content="내 웹사이트의 GEO 점수와 ChatGPT, Gemini, 퍼플렉시티 등 AI 검색 노출 상태를 무료로 진단하세요. 생성형 엔진 최적화(GEO), SEO 구조, 브랜드 신뢰도 리포트를 제공합니다.">
     <meta name="keywords"
         content="GEO 점수, GEO 진단, GEO 점수 무료, GEO, 생성형엔진최적화, AI검색최적화, ChatGPT검색, SEO, 검색엔진최적화, 메디아나랑하, 사이트진단, 상위노출">
     <meta name="author" content="Media Naranja">
+    <meta name="robots" content="index, follow, max-image-preview:large">
     <link rel="canonical" href="https://geo.naranja.my/">
 
     <!-- Favicon -->
@@ -22,17 +23,19 @@
 
     <!-- Open Graph / Facebook / Kakao -->
     <meta property="og:type" content="website">
+    <meta property="og:locale" content="ko_KR">
+    <meta property="og:site_name" content="Media Naranja GEO Analytics Console">
     <meta property="og:url" content="https://geo.naranja.my/">
-    <meta property="og:title" content="🍊 GEO 점수 무료 진단 - 내 사이트의 AI 최적화 점수는?">
+    <meta property="og:title" content="GEO 점수 무료 진단 - AI 검색 최적화·ChatGPT 노출 분석">
     <meta property="og:description"
-        content="ChatGPT, Gemini 등 생성형 AI 시대, 내 브랜드의 GEO 점수를 지금 바로 확인해보세요. 무료 진단 및 최적화 리포트 제공.">
+        content="ChatGPT, Gemini 등 생성형 AI 시대, 내 브랜드의 GEO 점수와 AI 검색 노출 상태를 무료로 확인해보세요.">
     <meta property="og:image" content="https://geo.naranja.my/thumb.png">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://geo.naranja.my/">
-    <meta property="twitter:title" content="GEO 점수 무료 진단하기">
-    <meta property="twitter:description" content="내 사이트는 AI에게 어떻게 보일까? GEO 점수를 무료로 진단받고 AI 검색 상위 노출 전략을 확인하세요.">
+    <meta property="twitter:title" content="GEO 점수 무료 진단 | AI 검색 최적화 분석">
+    <meta property="twitter:description" content="내 사이트는 AI에게 어떻게 보일까? GEO 점수를 무료로 진단받고 ChatGPT 검색 노출 전략을 확인하세요.">
     <meta property="twitter:image" content="https://geo.naranja.my/thumb.png">
 
     <script src="https://cdn.tailwindcss.com"></script>
@@ -110,25 +113,106 @@
 
     <!-- JSON-LD Structured Data -->
     <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "SoftwareApplication",
-      "name": "GEO Analytics Console",
-      "operatingSystem": "Web",
-      "applicationCategory": "BusinessApplication",
-      "offers": {
-        "@type": "Offer",
-        "price": "0",
-        "priceCurrency": "KRW"
-      },
-      "description": "생성형 AI 검색(GEO) 최적화 상태를 진단해주는 무료 웹 기반 도구입니다.",
-      "author": {
-        "@type": "Organization",
-        "name": "Media Naranja",
-        "url": "https://naranja.my",
-        "logo": "https://naranja.my/images/logo.png"
-      }
-    }
+        {
+            "@context": "https://schema.org",
+            "@graph": [
+                {
+                    "@type": "Organization",
+                    "@id": "https://geo.naranja.my/#organization",
+                    "name": "Media Naranja",
+                    "legalName": "주식회사 메디아나랑하",
+                    "url": "https://naranja.my/",
+                    "logo": "https://geo.naranja.my/thumb.png",
+                    "email": "naranja@naranja.my",
+                    "telephone": "+82-70-8027-2306",
+                    "address": {
+                        "@type": "PostalAddress",
+                        "addressCountry": "KR",
+                        "addressRegion": "강원도",
+                        "addressLocality": "고성군",
+                        "streetAddress": "간성읍 간성로52번길 15, 1층"
+                    }
+                },
+                {
+                    "@type": "WebSite",
+                    "@id": "https://geo.naranja.my/#website",
+                    "url": "https://geo.naranja.my/",
+                    "name": "Media Naranja GEO Analytics Console",
+                    "inLanguage": "ko-KR",
+                    "publisher": {
+                        "@id": "https://geo.naranja.my/#organization"
+                    }
+                },
+                {
+                    "@type": "SoftwareApplication",
+                    "@id": "https://geo.naranja.my/#software",
+                    "name": "GEO Analytics Console",
+                    "url": "https://geo.naranja.my/",
+                    "operatingSystem": "Web",
+                    "applicationCategory": "BusinessApplication",
+                    "description": "ChatGPT, Gemini, 퍼플렉시티 등 생성형 AI 검색 노출과 GEO 최적화 상태를 진단해주는 무료 웹 기반 도구입니다.",
+                    "image": "https://geo.naranja.my/thumb.png",
+                    "offers": {
+                        "@type": "Offer",
+                        "price": "0",
+                        "priceCurrency": "KRW"
+                    },
+                    "author": {
+                        "@id": "https://geo.naranja.my/#organization"
+                    }
+                },
+                {
+                    "@type": "Service",
+                    "@id": "https://geo.naranja.my/#service",
+                    "name": "GEO 점수 진단 및 AI 검색 최적화 컨설팅",
+                    "serviceType": "Generative Engine Optimization",
+                    "url": "https://geo.naranja.my/",
+                    "provider": {
+                        "@id": "https://geo.naranja.my/#organization"
+                    },
+                    "areaServed": "KR",
+                    "description": "웹사이트의 SEO 구조, JSON-LD, AI 가독성, 브랜드 신뢰도, 외부 평판을 분석하여 생성형 AI 검색 노출 개선 방향을 제안합니다."
+                },
+                {
+                    "@type": "FAQPage",
+                    "@id": "https://geo.naranja.my/#faq",
+                    "mainEntity": [
+                        {
+                            "@type": "Question",
+                            "name": "GEO란 무엇인가요?",
+                            "acceptedAnswer": {
+                                "@type": "Answer",
+                                "text": "GEO는 Generative Engine Optimization의 약자로, ChatGPT, Gemini, 퍼플렉시티 같은 생성형 AI가 브랜드와 웹사이트 정보를 정확히 이해하고 인용하도록 돕는 최적화 방식입니다."
+                            }
+                        },
+                        {
+                            "@type": "Question",
+                            "name": "SEO와 GEO의 차이는 무엇인가요?",
+                            "acceptedAnswer": {
+                                "@type": "Answer",
+                                "text": "SEO는 검색 결과 페이지에서의 노출을 높이는 데 초점을 두고, GEO는 AI 답변 안에서 브랜드가 정확히 언급되고 신뢰할 수 있는 출처로 인식되도록 구조와 콘텐츠를 정리합니다."
+                            }
+                        },
+                        {
+                            "@type": "Question",
+                            "name": "GEO 점수 진단은 어떤 항목을 보나요?",
+                            "acceptedAnswer": {
+                                "@type": "Answer",
+                                "text": "기술 구조, JSON-LD, robots.txt, 콘텐츠 명확성, AI 가독성, 브랜드 일관성, 언론 언급, 리뷰 감성, 엔티티 권위 등을 종합적으로 확인합니다."
+                            }
+                        },
+                        {
+                            "@type": "Question",
+                            "name": "AI 검색 노출은 보장되나요?",
+                            "acceptedAnswer": {
+                                "@type": "Answer",
+                                "text": "검색 순위나 AI 답변 노출은 각 플랫폼의 알고리즘과 외부 신호에 따라 달라지므로 보장할 수 없습니다. 다만 GEO 진단은 AI가 이해하기 쉬운 구조와 신뢰 신호를 강화하는 개선 방향을 제공합니다."
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
     </script>
 </head>
 <!-- Google tag (gtag.js) -->
@@ -166,7 +250,7 @@
 
     <header class="bg-white/80 backdrop-blur-md border-b border-gray-100 sticky top-0 z-50">
         <div class="max-w-6xl mx-auto px-4 py-3 md:px-6 md:py-4 flex justify-between items-center">
-            <a href="https://geo-analyze.netlify.app/" class="flex items-center gap-2 group">
+            <a href="https://geo.naranja.my/" class="flex items-center gap-2 group">
                 <div
                     class="w-8 h-8 rounded-full bg-gradient-to-br from-naranja-400 to-naranja-600 flex items-center justify-center text-white shadow-lg shadow-naranja-500/30 group-hover:scale-110 transition-transform">
                     <span class="font-bold text-lg">N</span>
@@ -685,6 +769,45 @@
                 </div>
             </div>
         </div>
+
+        <section id="faqSection" class="w-full max-w-5xl mt-20 md:mt-28 mb-20 fade-in" style="animation-delay: 0.6s;">
+            <div class="text-center mb-10">
+                <p class="text-sm font-bold text-naranja-600 mb-3">GEO FAQ</p>
+                <h2 class="text-3xl md:text-4xl font-black text-slate-900 mb-4 leading-tight" data-i18n="faq_title">
+                    GEO와 AI 검색 최적화가 궁금하신가요?
+                </h2>
+                <p class="text-gray-500 md:text-lg" data-i18n="faq_desc">
+                    Google 검색과 생성형 AI 답변에서 브랜드가 더 정확하게 이해되도록 필요한 핵심 질문을 정리했습니다.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5 text-left">
+                <article class="bg-white border border-gray-100 rounded-2xl p-6 shadow-sm">
+                    <h3 class="font-bold text-lg text-slate-900 mb-3" data-i18n="faq_q1">GEO란 무엇인가요?</h3>
+                    <p class="text-sm text-gray-500 leading-relaxed" data-i18n="faq_a1">
+                        GEO는 Generative Engine Optimization의 약자로, ChatGPT, Gemini, 퍼플렉시티 같은 생성형 AI가 브랜드와 웹사이트 정보를 정확히 이해하고 인용하도록 돕는 최적화 방식입니다.
+                    </p>
+                </article>
+                <article class="bg-white border border-gray-100 rounded-2xl p-6 shadow-sm">
+                    <h3 class="font-bold text-lg text-slate-900 mb-3" data-i18n="faq_q2">SEO와 GEO의 차이는 무엇인가요?</h3>
+                    <p class="text-sm text-gray-500 leading-relaxed" data-i18n="faq_a2">
+                        SEO는 검색 결과 페이지 노출을 높이는 데 초점을 두고, GEO는 AI 답변 안에서 브랜드가 정확히 언급되고 신뢰할 수 있는 출처로 인식되도록 콘텐츠와 구조를 정리합니다.
+                    </p>
+                </article>
+                <article class="bg-white border border-gray-100 rounded-2xl p-6 shadow-sm">
+                    <h3 class="font-bold text-lg text-slate-900 mb-3" data-i18n="faq_q3">GEO 점수 진단은 어떤 항목을 보나요?</h3>
+                    <p class="text-sm text-gray-500 leading-relaxed" data-i18n="faq_a3">
+                        기술 구조, JSON-LD, robots.txt, 콘텐츠 명확성, AI 가독성, 브랜드 일관성, 언론 언급, 리뷰 감성, 엔티티 권위 등을 종합적으로 확인합니다.
+                    </p>
+                </article>
+                <article class="bg-white border border-gray-100 rounded-2xl p-6 shadow-sm">
+                    <h3 class="font-bold text-lg text-slate-900 mb-3" data-i18n="faq_q4">AI 검색 노출은 보장되나요?</h3>
+                    <p class="text-sm text-gray-500 leading-relaxed" data-i18n="faq_a4">
+                        검색 순위나 AI 답변 노출은 각 플랫폼의 알고리즘과 외부 신호에 따라 달라지므로 보장할 수 없습니다. 다만 GEO 진단은 AI가 이해하기 쉬운 구조와 신뢰 신호를 강화하는 개선 방향을 제공합니다.
+                    </p>
+                </article>
+            </div>
+        </section>
     </main>
 
     <footer class="bg-white border-t border-gray-100 py-10">
@@ -708,17 +831,17 @@
                 </a>
             </div>
             <div class="flex flex-col sm:flex-row justify-center items-center gap-2 mt-6">
-                <a href="terms.html"
+                <a href="https://geo.naranja.my/terms.html"
                     class="inline-flex items-center justify-center gap-2 w-full sm:w-auto px-4 py-2 rounded-lg border border-gray-200 text-sm font-bold text-slate-700 hover:border-naranja-500 hover:text-naranja-600 transition-colors">
                     <i class="fa-solid fa-file-contract"></i>
                     <span>이용약관</span>
                 </a>
-                <a href="privacy.html"
+                <a href="https://geo.naranja.my/privacy.html"
                     class="inline-flex items-center justify-center gap-2 w-full sm:w-auto px-4 py-2 rounded-lg border border-gray-200 text-sm font-bold text-slate-700 hover:border-naranja-500 hover:text-naranja-600 transition-colors">
                     <i class="fa-solid fa-user-shield"></i>
                     <span>개인정보처리방침</span>
                 </a>
-                <a href="refund.html"
+                <a href="https://geo.naranja.my/refund.html"
                     class="inline-flex items-center justify-center gap-2 w-full sm:w-auto px-4 py-2 rounded-lg border border-gray-200 text-sm font-bold text-slate-700 hover:border-naranja-500 hover:text-naranja-600 transition-colors">
                     <i class="fa-solid fa-rotate-left"></i>
                     <span>환불 정책</span>
@@ -862,7 +985,17 @@
                 out_llm: "LLM 인지도",
                 out_entity: "엔티티 권위(신뢰)",
                 out_brand: "브랜드 메시지 일관성",
-                overall_title: "종합 분석 결과"
+                overall_title: "종합 분석 결과",
+                faq_title: "GEO와 AI 검색 최적화가 궁금하신가요?",
+                faq_desc: "Google 검색과 생성형 AI 답변에서 브랜드가 더 정확하게 이해되도록 필요한 핵심 질문을 정리했습니다.",
+                faq_q1: "GEO란 무엇인가요?",
+                faq_a1: "GEO는 Generative Engine Optimization의 약자로, ChatGPT, Gemini, 퍼플렉시티 같은 생성형 AI가 브랜드와 웹사이트 정보를 정확히 이해하고 인용하도록 돕는 최적화 방식입니다.",
+                faq_q2: "SEO와 GEO의 차이는 무엇인가요?",
+                faq_a2: "SEO는 검색 결과 페이지 노출을 높이는 데 초점을 두고, GEO는 AI 답변 안에서 브랜드가 정확히 언급되고 신뢰할 수 있는 출처로 인식되도록 콘텐츠와 구조를 정리합니다.",
+                faq_q3: "GEO 점수 진단은 어떤 항목을 보나요?",
+                faq_a3: "기술 구조, JSON-LD, robots.txt, 콘텐츠 명확성, AI 가독성, 브랜드 일관성, 언론 언급, 리뷰 감성, 엔티티 권위 등을 종합적으로 확인합니다.",
+                faq_q4: "AI 검색 노출은 보장되나요?",
+                faq_a4: "검색 순위나 AI 답변 노출은 각 플랫폼의 알고리즘과 외부 신호에 따라 달라지므로 보장할 수 없습니다. 다만 GEO 진단은 AI가 이해하기 쉬운 구조와 신뢰 신호를 강화하는 개선 방향을 제공합니다."
             },
             en: {
                 title_1: "Is your website",
@@ -932,7 +1065,17 @@
                 out_llm: "LLM Awareness",
                 out_entity: "Entity Authority",
                 out_brand: "Brand Consistency",
-                overall_title: "Overall Analysis"
+                overall_title: "Overall Analysis",
+                faq_title: "Questions about GEO and AI search optimization?",
+                faq_desc: "Here are the core questions that help your brand become clearer to Google Search and generative AI answers.",
+                faq_q1: "What is GEO?",
+                faq_a1: "GEO means Generative Engine Optimization. It helps generative AI systems such as ChatGPT, Gemini, and Perplexity understand, cite, and describe your brand and website accurately.",
+                faq_q2: "How is GEO different from SEO?",
+                faq_a2: "SEO focuses on visibility in search result pages. GEO focuses on making your brand accurate, trustworthy, and easy to cite inside AI-generated answers.",
+                faq_q3: "What does the GEO score audit check?",
+                faq_a3: "The audit reviews technical structure, JSON-LD, robots.txt, content clarity, AI readability, brand consistency, media mentions, review sentiment, and entity authority.",
+                faq_q4: "Can AI search visibility be guaranteed?",
+                faq_a4: "Search rankings and AI answer visibility depend on platform algorithms and external signals, so they cannot be guaranteed. The audit provides improvements that strengthen machine-readable structure and trust signals."
             }
         };
 
