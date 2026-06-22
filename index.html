@@ -4,13 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GEO 점수 무료 진단 | AI 검색 최적화·ChatGPT 노출 분석 - Media Naranja</title>
+    <title>GEO 점수 유료 진단 | AI 검색 최적화·ChatGPT 노출 분석 - Media Naranja</title>
 
     <!-- SEO Meta Tags -->
     <meta name="description"
-        content="내 웹사이트의 GEO 점수와 ChatGPT, Gemini, 퍼플렉시티 등 AI 검색 노출 상태를 무료로 진단하세요. 생성형 엔진 최적화(GEO), SEO 구조, 브랜드 신뢰도 리포트를 제공합니다.">
+        content="내 웹사이트의 GEO 점수와 ChatGPT, Gemini, 퍼플렉시티 등 AI 검색 노출 상태를 5,000원으로 진단하세요. 생성형 엔진 최적화(GEO), SEO 구조, 브랜드 신뢰도 리포트를 제공합니다.">
     <meta name="keywords"
-        content="GEO 점수, GEO 진단, GEO 점수 무료, GEO, 생성형엔진최적화, AI검색최적화, ChatGPT검색, SEO, 검색엔진최적화, 메디아나랑하, 사이트진단, 상위노출">
+        content="GEO 점수, GEO 진단, GEO 유료 진단, GEO, 생성형엔진최적화, AI검색최적화, ChatGPT검색, SEO, 검색엔진최적화, 메디아나랑하, 사이트진단, 상위노출">
     <meta name="author" content="Media Naranja">
     <meta name="robots" content="index, follow, max-image-preview:large">
     <link rel="canonical" href="https://geo.naranja.my/">
@@ -26,16 +26,16 @@
     <meta property="og:locale" content="ko_KR">
     <meta property="og:site_name" content="Media Naranja GEO Analytics Console">
     <meta property="og:url" content="https://geo.naranja.my/">
-    <meta property="og:title" content="GEO 점수 무료 진단 - AI 검색 최적화·ChatGPT 노출 분석">
+    <meta property="og:title" content="GEO 점수 유료 진단 - AI 검색 최적화·ChatGPT 노출 분석">
     <meta property="og:description"
-        content="ChatGPT, Gemini 등 생성형 AI 시대, 내 브랜드의 GEO 점수와 AI 검색 노출 상태를 무료로 확인해보세요.">
+        content="ChatGPT, Gemini 등 생성형 AI 시대, 내 브랜드의 GEO 점수와 AI 검색 노출 상태를 5,000원으로 확인해보세요.">
     <meta property="og:image" content="https://geo.naranja.my/thumb.png">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://geo.naranja.my/">
-    <meta property="twitter:title" content="GEO 점수 무료 진단 | AI 검색 최적화 분석">
-    <meta property="twitter:description" content="내 사이트는 AI에게 어떻게 보일까? GEO 점수를 무료로 진단받고 ChatGPT 검색 노출 전략을 확인하세요.">
+    <meta property="twitter:title" content="GEO 점수 유료 진단 | AI 검색 최적화 분석">
+    <meta property="twitter:description" content="내 사이트는 AI에게 어떻게 보일까? GEO 점수를 5,000원으로 진단받고 ChatGPT 검색 노출 전략을 확인하세요.">
     <meta property="twitter:image" content="https://geo.naranja.my/thumb.png">
 
     <script src="https://cdn.tailwindcss.com"></script>
@@ -150,11 +150,11 @@
                     "url": "https://geo.naranja.my/",
                     "operatingSystem": "Web",
                     "applicationCategory": "BusinessApplication",
-                    "description": "ChatGPT, Gemini, 퍼플렉시티 등 생성형 AI 검색 노출과 GEO 최적화 상태를 진단해주는 무료 웹 기반 도구입니다.",
+                    "description": "ChatGPT, Gemini, 퍼플렉시티 등 생성형 AI 검색 노출과 GEO 최적화 상태를 진단해주는 웹 기반 도구입니다.",
                     "image": "https://geo.naranja.my/thumb.png",
                     "offers": {
                         "@type": "Offer",
-                        "price": "0",
+                        "price": "5000",
                         "priceCurrency": "KRW"
                     },
                     "author": {
@@ -307,12 +307,33 @@
                         class="w-full pl-11 pr-4 py-4 rounded-xl bg-transparent border-none outline-none text-slate-800 placeholder-gray-300 font-medium h-full"
                         required>
                 </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-gray-400">
+                            <i class="fa-solid fa-envelope"></i>
+                        </div>
+                        <input type="email" id="customerEmail" placeholder="결제자 이메일"
+                            class="w-full pl-11 pr-4 py-4 rounded-xl bg-transparent border-none outline-none text-slate-800 placeholder-gray-300 font-medium h-full"
+                            required>
+                    </div>
+                    <div class="relative">
+                        <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-gray-400">
+                            <i class="fa-solid fa-mobile-screen-button"></i>
+                        </div>
+                        <input type="tel" id="customerPhone" placeholder="휴대폰 번호 (예: 010-1234-5678)"
+                            class="w-full pl-11 pr-4 py-4 rounded-xl bg-transparent border-none outline-none text-slate-800 placeholder-gray-300 font-medium h-full"
+                            required>
+                    </div>
+                </div>
                 <button onclick="analyzeSite()" id="analyzeBtn"
                     class="bg-naranja-500 hover:bg-naranja-600 text-white font-bold px-8 py-4 rounded-xl transition-all shadow-lg shadow-naranja-500/20 active:scale-95 flex items-center justify-center gap-2 whitespace-nowrap w-full">
-                    <span data-i18n="btn_analyze">무료 진단 시작</span>
+                    <span data-i18n="btn_analyze">5,000원 결제 후 진단 시작</span>
                     <i class="fa-solid fa-arrow-right-long"></i>
                 </button>
             </div>
+            <p class="text-xs text-gray-400 mt-3" data-i18n="payment_notice">
+                결제 완료 후 자동으로 GEO 진단이 시작됩니다. 테스트 결제는 PG 정책에 따라 처리됩니다.
+            </p>
             <p id="errorMsg"
                 class="text-red-500 mt-4 text-sm hidden font-medium flex items-center justify-center gap-1 animate-pulse">
                 <i class="fa-solid fa-circle-exclamation"></i> <span data-i18n="error_url">올바른 URL을 입력해주세요.</span>
@@ -872,6 +893,7 @@
                 <input type="hidden" name="summary" id="hidden_summary">
                 <input type="hidden" name="total_score" id="hidden_total_score">
                 <input type="hidden" name="site_description" id="hidden_site_description">
+                <input type="hidden" name="payment_id" id="hidden_payment_id">
                 <div>
                     <label class="block text-xs font-bold text-slate-700 mb-1">조직명 <span
                             class="text-red-500">*</span></label>
@@ -921,11 +943,18 @@
                 title_1: "당신의 웹사이트는",
                 title_2: "AI에게 발견되고 있나요?",
                 subtitle: "ChatGPT, Gemini 등 생성형 AI가 귀하의 브랜드를 어떻게 인식하는지 Media Naranja의 기술로 정확하게 진단해드립니다.",
-                btn_analyze: "무료 진단 시작",
-                btn_analyze: "무료 진단 시작",
+                btn_analyze: "5,000원 결제 후 진단 시작",
                 placeholder_company: "회사명/브랜드명 (예: 메디아나랑하)",
+                placeholder_email: "결제자 이메일",
+                placeholder_phone: "휴대폰 번호 (예: 010-1234-5678)",
+                payment_notice: "결제 완료 후 자동으로 GEO 진단이 시작됩니다. 테스트 결제는 PG 정책에 따라 처리됩니다.",
                 error_company: "회사명 또는 브랜드명을 입력해주세요.",
                 error_url: "올바른 도메인을 입력해주세요 (예: example.com)",
+                error_email: "결제자 이메일을 입력해주세요.",
+                error_phone: "결제자 휴대폰 번호를 입력해주세요.",
+                error_payment_config: "포트원 storeId가 설정되지 않았습니다. 관리자 콘솔의 storeId를 입력해주세요.",
+                error_payment: "결제가 완료되지 않았습니다. 결제 후 진단이 진행됩니다.",
+                payment_order_name: "GEO 점수 진단 리포트",
                 loading_title: "AI 엔진이 분석 중입니다...(최대 5분이 소요됩니다)",
                 loading_desc: "내부 최적화(On-Site) 및 외부 평판(Off-Site) 데이터를 종합 분석하고 있습니다.",
                 cta_title: "GEO 점수를 높여 잠재 고객 유입을 극대화하세요",
@@ -1001,11 +1030,18 @@
                 title_1: "Is your website",
                 title_2: "Visible to AI?",
                 subtitle: "Diagnose how Generative AI like ChatGPT & Gemini perceive your brand with Media Naranja's technology.",
-                btn_analyze: "Start Free Audit",
-                btn_analyze: "Start Free Audit",
+                btn_analyze: "Pay KRW 5,000 & Start Audit",
                 placeholder_company: "Company/Brand Name",
+                placeholder_email: "Payer email",
+                placeholder_phone: "Mobile number",
+                payment_notice: "The GEO audit starts automatically after payment is completed. Test payments follow the PG provider policy.",
                 error_company: "Please enter your company or brand name.",
                 error_url: "Please enter a valid domain (e.g. example.com)",
+                error_email: "Please enter the payer email.",
+                error_phone: "Please enter the payer mobile number.",
+                error_payment_config: "PortOne storeId is not configured. Please enter the storeId from the admin console.",
+                error_payment: "Payment was not completed. The audit starts after payment.",
+                payment_order_name: "GEO Score Audit Report",
                 loading_title: "AI Engine is analyzing...(Max 5 minutes)",
                 loading_desc: "Analyzing both internal site structure and external reputation (Media, Reviews) comprehensively.",
                 cta_title: "Boost Your GEO Score, Maximize Customer Traffic",
@@ -1080,6 +1116,11 @@
         };
 
         let currentLang = 'ko';
+        const PORTONE_SDK_URL = 'https://cdn.jsdelivr.net/npm/@portone/browser-sdk@latest/+esm';
+        const PORTONE_STORE_ID = 'store-7fa065e8-7458-40c9-a584-873133578b78';
+        const PORTONE_CHANNEL_KEY = 'channel-key-e8c95e9c-0435-4b6b-ae26-30b8a66250d2';
+        const GEO_AUDIT_PRICE = 5000;
+        let portOneSdkPromise = null;
 
         function setLanguage(lang) {
             currentLang = lang;
@@ -1097,6 +1138,72 @@
                 if (i18n[lang][key]) el.innerHTML = i18n[lang][key];
             });
             document.getElementById('companyName').placeholder = i18n[lang]['placeholder_company'];
+            document.getElementById('customerEmail').placeholder = i18n[lang]['placeholder_email'];
+            document.getElementById('customerPhone').placeholder = i18n[lang]['placeholder_phone'];
+        }
+
+        function showError(messageKey, fallbackMessage) {
+            const errorMsg = document.getElementById('errorMsg');
+            errorMsg.querySelector('span').textContent = i18n[currentLang][messageKey] || fallbackMessage;
+            errorMsg.classList.remove('hidden');
+        }
+
+        function createPaymentId() {
+            const uniqueId = crypto.randomUUID ? crypto.randomUUID() : `${Date.now()}-${Math.random().toString(16).slice(2)}`;
+            return `geo-audit-${uniqueId}`;
+        }
+
+        async function loadPortOneSdk() {
+            if (!portOneSdkPromise) {
+                portOneSdkPromise = import(PORTONE_SDK_URL);
+            }
+            return portOneSdkPromise;
+        }
+
+        async function requestGeoAuditPayment({ companyName, url, email, phone }) {
+            if (!PORTONE_STORE_ID || PORTONE_STORE_ID === 'YOUR_PORTONE_STORE_ID') {
+                const configError = new Error('PortOne storeId is missing.');
+                configError.code = 'PORTONE_STORE_ID_REQUIRED';
+                throw configError;
+            }
+
+            const PortOne = await loadPortOneSdk();
+            const paymentId = createPaymentId();
+            const payment = await PortOne.requestPayment({
+                storeId: PORTONE_STORE_ID,
+                channelKey: PORTONE_CHANNEL_KEY,
+                paymentId,
+                orderName: i18n[currentLang]['payment_order_name'],
+                totalAmount: GEO_AUDIT_PRICE,
+                currency: 'CURRENCY_KRW',
+                payMethod: 'CARD',
+                customer: {
+                    fullName: companyName,
+                    phoneNumber: phone,
+                    email,
+                },
+                customData: {
+                    companyName,
+                    targetUrl: url,
+                    product: 'geo_audit',
+                },
+                redirectUrl: window.location.href,
+            });
+
+            if (!payment) {
+                const emptyResponseError = new Error('Payment was not completed.');
+                emptyResponseError.code = 'PAYMENT_NOT_COMPLETED';
+                throw emptyResponseError;
+            }
+
+            if (payment.code) {
+                const paymentError = new Error(payment.message || i18n[currentLang]['error_payment']);
+                paymentError.code = payment.code;
+                paymentError.pgCode = payment.pgCode;
+                throw paymentError;
+            }
+
+            return { paymentId, payment };
         }
 
         async function analyzeSite() {
@@ -1104,6 +1211,10 @@
             const companyName = companyNameInput.value.trim();
             const urlInput = document.getElementById('targetUrl');
             const url = urlInput.value.trim();
+            const emailInput = document.getElementById('customerEmail');
+            const customerEmail = emailInput.value.trim();
+            const phoneInput = document.getElementById('customerPhone');
+            const customerPhone = phoneInput.value.trim();
             const errorMsg = document.getElementById('errorMsg');
             const loadingSection = document.getElementById('loadingSection');
             const resultSection = document.getElementById('resultSection');
@@ -1118,28 +1229,50 @@
             if (pricingSection) pricingSection.classList.add('hidden'); // Hide pricing section on analyze
 
             if (!companyName) {
-                errorMsg.querySelector('span').textContent = i18n[currentLang]['error_company'];
-                errorMsg.classList.remove('hidden');
+                showError('error_company');
                 return;
             }
 
             const domainPattern = /.+\..+/;
             if (!url || !domainPattern.test(url)) {
-                errorMsg.querySelector('span').textContent = i18n[currentLang]['error_url'];
-                errorMsg.classList.remove('hidden');
+                showError('error_url');
                 return;
             }
 
-            loadingSection.classList.remove('hidden');
+            if (!customerEmail) {
+                showError('error_email');
+                return;
+            }
+
+            if (!customerPhone) {
+                showError('error_phone');
+                return;
+            }
+
             analyzeBtn.disabled = true;
             analyzeBtn.classList.add('opacity-70', 'cursor-not-allowed');
 
             try {
+                const paymentResult = await requestGeoAuditPayment({
+                    companyName,
+                    url,
+                    email: customerEmail,
+                    phone: customerPhone,
+                });
+
+                document.getElementById('hidden_payment_id').value = paymentResult.paymentId;
+                loadingSection.classList.remove('hidden');
+
                 // Backend API URL
                 const response = await fetch('https://chatbot.naranja.my/geo_analyze', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ url: url, company_name: companyName, lang: currentLang })
+                    body: JSON.stringify({
+                        url: url,
+                        company_name: companyName,
+                        lang: currentLang,
+                        payment_id: paymentResult.paymentId,
+                    })
                 });
 
                 if (!response.ok) throw new Error('Server Error');
@@ -1163,8 +1296,13 @@
 
             } catch (error) {
                 console.error(error);
-                errorMsg.querySelector('span').textContent = i18n[currentLang]['error_server'];
-                errorMsg.classList.remove('hidden');
+                if (error.code === 'PORTONE_STORE_ID_REQUIRED') {
+                    showError('error_payment_config');
+                } else if (error.code || error.pgCode) {
+                    showError('error_payment', error.message);
+                } else {
+                    showError('error_server');
+                }
             } finally {
                 loadingSection.classList.add('hidden');
                 analyzeBtn.disabled = false;
