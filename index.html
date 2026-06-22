@@ -1149,8 +1149,9 @@
         }
 
         function createPaymentId() {
-            const uniqueId = crypto.randomUUID ? crypto.randomUUID() : `${Date.now()}-${Math.random().toString(16).slice(2)}`;
-            return `geo-audit-${uniqueId}`;
+            const timestamp = Date.now().toString(36);
+            const random = Math.random().toString(36).slice(2, 10);
+            return `geo-${timestamp}-${random}`;
         }
 
         async function loadPortOneSdk() {
