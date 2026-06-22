@@ -1148,9 +1148,11 @@
         const PORTONE_STORE_ID = 'store-7fa065e8-7458-40c9-a584-873133578b78';
         const PORTONE_CHANNEL_KEY = 'channel-key-e8c95e9c-0435-4b6b-ae26-30b8a66250d2';
         const GEO_AUDIT_PRICE = 5000;
-        const HTML2PDF_URL = 'https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js';
+        const HTML_TO_IMAGE_URL = 'https://cdn.jsdelivr.net/npm/html-to-image@1.11.11/+esm';
+        const JSPDF_URL = 'https://cdn.jsdelivr.net/npm/jspdf@2.5.1/+esm';
         let portOneSdkPromise = null;
-        let html2PdfPromise = null;
+        let htmlToImagePromise = null;
+        let jsPdfPromise = null;
 
         function setLanguage(lang) {
             currentLang = lang;
@@ -1191,19 +1193,18 @@
             return portOneSdkPromise;
         }
 
-        async function loadHtml2Pdf() {
-            if (window.html2pdf) return window.html2pdf;
-            if (!html2PdfPromise) {
-                html2PdfPromise = new Promise((resolve, reject) => {
-                    const script = document.createElement('script');
-                    script.src = HTML2PDF_URL;
-                    script.async = true;
-                    script.onload = () => resolve(window.html2pdf);
-                    script.onerror = reject;
-                    document.head.appendChild(script);
-                });
+        async function loadHtmlToImage() {
+            if (!htmlToImagePromise) {
+                htmlToImagePromise = import(HTML_TO_IMAGE_URL);
             }
-            return html2PdfPromise;
+            return htmlToImagePromise;
+        }
+
+        async function loadJsPdf() {
+            if (!jsPdfPromise) {
+                jsPdfPromise = import(JSPDF_URL);
+            }
+            return jsPdfPromise;
         }
 
         function setReportMessage(messageKey, type) {
@@ -1271,24 +1272,51 @@
         }
 
         async function createReportPdfBase64() {
-            const html2pdf = await loadHtml2Pdf();
+            const htmlToImage = await loadHtmlToImage();
+            const { jsPDF } = await loadJsPdf();
             const reportElement = createReportElement();
             reportElement.style.position = 'fixed';
-            reportElement.style.left = '-10000px';
+            reportElement.style.left = '0';
             reportElement.style.top = '0';
+            reportElement.style.zIndex = '2147483647';
+            reportElement.style.pointerEvents = 'none';
+            reportElement.style.background = '#ffffff';
+            reportElement.style.boxShadow = '0 0 0 9999px #ffffff';
             document.body.appendChild(reportElement);
 
             try {
-                const pdfBlob = await html2pdf()
-                    .set({
-                        margin: [8, 8, 8, 8],
-                        filename: 'geo-report.pdf',
-                        image: { type: 'jpeg', quality: 0.96 },
-                        html2canvas: { scale: 2, useCORS: true, backgroundColor: '#ffffff' },
-                        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
-                    })
-                    .from(reportElement)
-                    .outputPdf('blob');
+                await new Promise(resolve => requestAnimationFrame(resolve));
+                const canvas = await htmlToImage.toCanvas(reportElement, {
+                    backgroundColor: '#ffffff',
+                    cacheBust: true,
+                    pixelRatio: 2,
+                    width: reportElement.scrollWidth,
+                    height: reportElement.scrollHeight,
+                    style: {
+                        transform: 'none',
+                    },
+                });
+                const imageData = canvas.toDataURL('image/jpeg', 0.96);
+                const pdf = new jsPDF({ unit: 'mm', format: 'a4', orientation: 'portrait' });
+                const pageWidth = pdf.internal.pageSize.getWidth();
+                const pageHeight = pdf.internal.pageSize.getHeight();
+                const margin = 8;
+                const imageWidth = pageWidth - margin * 2;
+                const imageHeight = canvas.height * imageWidth / canvas.width;
+                let remainingHeight = imageHeight;
+                let imageTop = margin;
+
+                pdf.addImage(imageData, 'JPEG', margin, imageTop, imageWidth, imageHeight);
+                remainingHeight -= pageHeight - margin * 2;
+
+                while (remainingHeight > 0) {
+                    pdf.addPage();
+                    imageTop = margin - (imageHeight - remainingHeight);
+                    pdf.addImage(imageData, 'JPEG', margin, imageTop, imageWidth, imageHeight);
+                    remainingHeight -= pageHeight - margin * 2;
+                }
+
+                const pdfBlob = pdf.output('blob');
                 return await blobToBase64(pdfBlob);
             } finally {
                 reportElement.remove();
