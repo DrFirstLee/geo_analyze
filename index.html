@@ -1151,6 +1151,7 @@
         const PAYMENT_ORDER_NAME = 'GEO Audit Report';
         const HTML_TO_IMAGE_URL = 'https://cdn.jsdelivr.net/npm/html-to-image@1.11.11/+esm';
         const JSPDF_URL = 'https://cdn.jsdelivr.net/npm/jspdf@2.5.1/+esm';
+        const PENDING_AUDIT_STORAGE_PREFIX = 'geo_pending_audit_';
         let portOneSdkPromise = null;
         let htmlToImagePromise = null;
         let jsPdfPromise = null;
@@ -1281,6 +1282,36 @@
             return sanitized || fallback;
         }
 
+        function createPaymentRedirectUrl() {
+            if (window.location.protocol === 'http:' || window.location.protocol === 'https:') {
+                const redirectUrl = new URL(window.location.href);
+                redirectUrl.search = '';
+                redirectUrl.hash = '';
+                redirectUrl.searchParams.set('geo_payment_redirect', '1');
+                return redirectUrl.toString();
+            }
+            return 'https://geo.naranja.my/?geo_payment_redirect=1';
+        }
+
+        function savePendingAudit(paymentId, auditData) {
+            sessionStorage.setItem(`${PENDING_AUDIT_STORAGE_PREFIX}${paymentId}`, JSON.stringify(auditData));
+        }
+
+        function loadPendingAudit(paymentId) {
+            const stored = sessionStorage.getItem(`${PENDING_AUDIT_STORAGE_PREFIX}${paymentId}`);
+            if (!stored) return null;
+            try {
+                return JSON.parse(stored);
+            } catch (error) {
+                console.error(error);
+                return null;
+            }
+        }
+
+        function clearPendingAudit(paymentId) {
+            sessionStorage.removeItem(`${PENDING_AUDIT_STORAGE_PREFIX}${paymentId}`);
+        }
+
         async function createReportPdfBase64() {
             const htmlToImage = await loadHtmlToImage();
             const { jsPDF } = await loadJsPdf();
@@ -1389,7 +1420,7 @@
             }
         }
 
-        async function requestGeoAuditPayment({ companyName, url, email, phone }) {
+        async function requestGeoAuditPayment({ paymentId, companyName, url, email, phone }) {
             if (!PORTONE_STORE_ID || PORTONE_STORE_ID === 'YOUR_PORTONE_STORE_ID') {
                 const configError = new Error('PortOne storeId is missing.');
                 configError.code = 'PORTONE_STORE_ID_REQUIRED';
@@ -1397,7 +1428,6 @@
             }
 
             const PortOne = await loadPortOneSdk();
-            const paymentId = createPaymentId();
             const payment = await PortOne.requestPayment({
                 storeId: PORTONE_STORE_ID,
                 channelKey: PORTONE_CHANNEL_KEY,
@@ -1417,7 +1447,7 @@
                     product: 'geo_audit',
                     lang: currentLang,
                 },
-                redirectUrl: window.location.href,
+                redirectUrl: createPaymentRedirectUrl(),
             });
 
             if (!payment) {
@@ -1434,6 +1464,47 @@
             }
 
             return { paymentId, payment };
+        }
+
+        async function runGeoAnalysisAfterPayment({ paymentId, companyName, url, email, phone }) {
+            document.getElementById('companyName').value = companyName || '';
+            document.getElementById('targetUrl').value = url || '';
+            document.getElementById('customerEmail').value = email || '';
+            document.getElementById('customerPhone').value = phone || '';
+            document.getElementById('hidden_payment_id').value = paymentId || '';
+
+            const loadingSection = document.getElementById('loadingSection');
+            const pricingSection = document.getElementById('pricingSection');
+            loadingSection.classList.remove('hidden');
+            if (pricingSection) pricingSection.classList.add('hidden');
+
+            const response = await fetch('https://chatbot.naranja.my/geo_analyze', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    url,
+                    company_name: companyName,
+                    lang: currentLang,
+                    payment_id: paymentId,
+                })
+            });
+
+            if (!response.ok) throw new Error('Server Error');
+            const data = await response.json();
+
+            const site = data.site_analysis || {};
+            const outside = data.outside_analysis || {};
+
+            document.getElementById('hidden_session_id').value = data.analysis_session_id || '';
+
+            const combinedInternal = `[Overall Internal]\n${data.overall_review_internal || '-'}\n\n[Site Analysis]\n${site.summary_internal || '-'}\n\n[Outside Analysis]\n${outside.outside_summary || '-'}`;
+            document.getElementById('hidden_summary_internal').value = combinedInternal;
+
+            document.getElementById('hidden_summary').value = data.overall_review || site.summary || '';
+            document.getElementById('hidden_total_score').value = data.overall_score || site.total_score || 0;
+            document.getElementById('hidden_site_description').value = site.site_description || '';
+
+            renderResult(data);
         }
 
         async function analyzeSite() {
@@ -1483,46 +1554,32 @@
             analyzeBtn.classList.add('opacity-70', 'cursor-not-allowed');
 
             try {
+                const paymentId = createPaymentId();
+                const auditData = {
+                    companyName,
+                    url,
+                    email: customerEmail,
+                    phone: customerPhone,
+                    lang: currentLang,
+                };
+                savePendingAudit(paymentId, auditData);
+
                 const paymentResult = await requestGeoAuditPayment({
+                    paymentId,
                     companyName,
                     url,
                     email: customerEmail,
                     phone: customerPhone,
                 });
 
-                document.getElementById('hidden_payment_id').value = paymentResult.paymentId;
-                loadingSection.classList.remove('hidden');
-
-                // Backend API URL
-                const response = await fetch('https://chatbot.naranja.my/geo_analyze', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        url: url,
-                        company_name: companyName,
-                        lang: currentLang,
-                        payment_id: paymentResult.paymentId,
-                    })
+                await runGeoAnalysisAfterPayment({
+                    paymentId: paymentResult.paymentId,
+                    companyName,
+                    url,
+                    email: customerEmail,
+                    phone: customerPhone,
                 });
-
-                if (!response.ok) throw new Error('Server Error');
-                const data = await response.json();
-
-                const site = data.site_analysis || {};
-                const outside = data.outside_analysis || {};
-
-                // Store hidden data for contact form
-                document.getElementById('hidden_session_id').value = data.analysis_session_id || '';
-
-                // Combine internal summaries for the consultant
-                const combinedInternal = `[Overall Internal]\n${data.overall_review_internal || '-'}\n\n[Site Analysis]\n${site.summary_internal || '-'}\n\n[Outside Analysis]\n${outside.outside_summary || '-'}`;
-                document.getElementById('hidden_summary_internal').value = combinedInternal;
-
-                document.getElementById('hidden_summary').value = data.overall_review || site.summary || '';
-                document.getElementById('hidden_total_score').value = data.overall_score || site.total_score || 0;
-                document.getElementById('hidden_site_description').value = site.site_description || '';
-
-                renderResult(data);
+                clearPendingAudit(paymentResult.paymentId);
 
             } catch (error) {
                 console.error(error);
@@ -1533,6 +1590,65 @@
                 } else {
                     showError('error_server');
                 }
+            } finally {
+                loadingSection.classList.add('hidden');
+                analyzeBtn.disabled = false;
+                analyzeBtn.classList.remove('opacity-70', 'cursor-not-allowed');
+            }
+        }
+
+        async function handlePaymentRedirectResult() {
+            const params = new URLSearchParams(window.location.search);
+            const paymentId = params.get('paymentId');
+            const isPaymentRedirect = params.get('geo_payment_redirect') === '1' || Boolean(paymentId);
+            if (!isPaymentRedirect) return;
+
+            const errorCode = params.get('code');
+            const errorMessage = params.get('message') || params.get('pgMessage') || i18n[currentLang]['error_payment'];
+            const loadingSection = document.getElementById('loadingSection');
+            const analyzeBtn = document.getElementById('analyzeBtn');
+            const infoSection = document.getElementById('infoSection');
+            const resultSection = document.getElementById('resultSection');
+            const pricingSection = document.getElementById('pricingSection');
+
+            const cleanUrl = new URL(window.location.href);
+            cleanUrl.search = '';
+            cleanUrl.hash = '';
+            window.history.replaceState({}, document.title, cleanUrl.toString());
+
+            if (!paymentId || errorCode) {
+                showError('error_payment', errorMessage);
+                return;
+            }
+
+            const pendingAudit = loadPendingAudit(paymentId);
+            if (!pendingAudit) {
+                showError('error_server');
+                return;
+            }
+
+            if (pendingAudit.lang && i18n[pendingAudit.lang]) {
+                setLanguage(pendingAudit.lang);
+            }
+
+            try {
+                analyzeBtn.disabled = true;
+                analyzeBtn.classList.add('opacity-70', 'cursor-not-allowed');
+                if (infoSection) infoSection.classList.add('hidden');
+                resultSection.classList.add('hidden');
+                if (pricingSection) pricingSection.classList.add('hidden');
+
+                await runGeoAnalysisAfterPayment({
+                    paymentId,
+                    companyName: pendingAudit.companyName,
+                    url: pendingAudit.url,
+                    email: pendingAudit.email,
+                    phone: pendingAudit.phone,
+                });
+                clearPendingAudit(paymentId);
+            } catch (error) {
+                console.error(error);
+                showError('error_server');
             } finally {
                 loadingSection.classList.add('hidden');
                 analyzeBtn.disabled = false;
@@ -1678,6 +1794,7 @@
         }
 
         setLanguage('ko');
+        handlePaymentRedirectResult();
     </script>
     <!-- GEO Tracking Elements -->
 
