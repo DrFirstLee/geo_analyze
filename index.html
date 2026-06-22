@@ -409,6 +409,20 @@
         </div>
 
         <div id="resultSection" class="hidden w-full fade-in">
+            <div class="mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3" data-report-exclude="true">
+                <div>
+                    <p class="text-sm font-bold text-naranja-600" data-i18n="report_label">진단 리포트</p>
+                    <p class="text-sm text-gray-500" data-i18n="report_desc">결제자 이메일로 현재 분석 결과 PDF를 전송합니다.</p>
+                </div>
+                <button onclick="sendReportEmail()" id="sendReportBtn"
+                    class="inline-flex items-center justify-center gap-2 bg-white border border-gray-200 text-slate-800 hover:border-naranja-500 hover:text-naranja-600 px-5 py-3 rounded-xl font-bold shadow-sm transition-colors">
+                    <i class="fa-solid fa-envelope-open-text"></i>
+                    <span data-i18n="btn_send_report">레포트 메일로 전송</span>
+                </button>
+            </div>
+            <p id="reportMsg" data-report-exclude="true"
+                class="hidden text-sm font-medium mb-6 px-4 py-3 rounded-xl border"></p>
+
             <!-- Overall Review Section -->
             <div
                 class="mb-16 bg-gradient-to-br from-slate-900 to-slate-800 rounded-3xl p-8 md:p-10 shadow-2xl text-white relative overflow-hidden">
@@ -622,7 +636,7 @@
             </div>
 
             <!-- CTA -->
-            <div class="bg-dark-900 rounded-3xl p-8 md:p-12 text-center relative overflow-hidden">
+            <div class="bg-dark-900 rounded-3xl p-8 md:p-12 text-center relative overflow-hidden" data-report-exclude="true">
                 <div
                     class="absolute top-0 right-0 -mr-10 -mt-10 w-64 h-64 bg-naranja-500 rounded-full blur-3xl opacity-20">
                 </div>
@@ -955,6 +969,13 @@
                 error_payment_config: "포트원 storeId가 설정되지 않았습니다. 관리자 콘솔의 storeId를 입력해주세요.",
                 error_payment: "결제가 완료되지 않았습니다. 결제 후 진단이 진행됩니다.",
                 payment_order_name: "GEO 점수 진단 리포트",
+                report_label: "진단 리포트",
+                report_desc: "결제자 이메일로 현재 분석 결과 PDF를 전송합니다.",
+                btn_send_report: "레포트 메일로 전송",
+                report_sending: "PDF 리포트를 생성하고 메일 전송을 요청하는 중입니다...",
+                report_success: "리포트 메일 전송 요청이 완료되었습니다.",
+                report_error: "리포트 메일 전송에 실패했습니다. 잠시 후 다시 시도해주세요.",
+                report_no_result: "먼저 진단 결과를 생성해주세요.",
                 loading_title: "AI 엔진이 분석 중입니다...(최대 5분이 소요됩니다)",
                 loading_desc: "내부 최적화(On-Site) 및 외부 평판(Off-Site) 데이터를 종합 분석하고 있습니다.",
                 cta_title: "GEO 점수를 높여 잠재 고객 유입을 극대화하세요",
@@ -1042,6 +1063,13 @@
                 error_payment_config: "PortOne storeId is not configured. Please enter the storeId from the admin console.",
                 error_payment: "Payment was not completed. The audit starts after payment.",
                 payment_order_name: "GEO Score Audit Report",
+                report_label: "Audit Report",
+                report_desc: "Send the current analysis result PDF to the payer email.",
+                btn_send_report: "Email Report",
+                report_sending: "Creating the PDF report and requesting email delivery...",
+                report_success: "The report email request has been completed.",
+                report_error: "Failed to send the report email. Please try again later.",
+                report_no_result: "Please generate an audit result first.",
                 loading_title: "AI Engine is analyzing...(Max 5 minutes)",
                 loading_desc: "Analyzing both internal site structure and external reputation (Media, Reviews) comprehensively.",
                 cta_title: "Boost Your GEO Score, Maximize Customer Traffic",
@@ -1120,7 +1148,9 @@
         const PORTONE_STORE_ID = 'store-7fa065e8-7458-40c9-a584-873133578b78';
         const PORTONE_CHANNEL_KEY = 'channel-key-e8c95e9c-0435-4b6b-ae26-30b8a66250d2';
         const GEO_AUDIT_PRICE = 5000;
+        const HTML2PDF_URL = 'https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js';
         let portOneSdkPromise = null;
+        let html2PdfPromise = null;
 
         function setLanguage(lang) {
             currentLang = lang;
@@ -1159,6 +1189,166 @@
                 portOneSdkPromise = import(PORTONE_SDK_URL);
             }
             return portOneSdkPromise;
+        }
+
+        async function loadHtml2Pdf() {
+            if (window.html2pdf) return window.html2pdf;
+            if (!html2PdfPromise) {
+                html2PdfPromise = new Promise((resolve, reject) => {
+                    const script = document.createElement('script');
+                    script.src = HTML2PDF_URL;
+                    script.async = true;
+                    script.onload = () => resolve(window.html2pdf);
+                    script.onerror = reject;
+                    document.head.appendChild(script);
+                });
+            }
+            return html2PdfPromise;
+        }
+
+        function setReportMessage(messageKey, type) {
+            const reportMsg = document.getElementById('reportMsg');
+            reportMsg.textContent = i18n[currentLang][messageKey] || messageKey;
+            reportMsg.className = 'text-sm font-medium mb-6 px-4 py-3 rounded-xl border';
+            if (type === 'success') {
+                reportMsg.classList.add('bg-green-50', 'border-green-100', 'text-green-700');
+            } else if (type === 'error') {
+                reportMsg.classList.add('bg-red-50', 'border-red-100', 'text-red-600');
+            } else {
+                reportMsg.classList.add('bg-naranja-50', 'border-naranja-100', 'text-naranja-700');
+            }
+            reportMsg.classList.remove('hidden');
+        }
+
+        function createReportElement() {
+            const resultSection = document.getElementById('resultSection');
+            const reportClone = resultSection.cloneNode(true);
+            reportClone.querySelectorAll('[data-report-exclude="true"]').forEach(el => el.remove());
+            reportClone.classList.remove('hidden', 'fade-in');
+
+            const companyName = document.getElementById('companyName').value.trim() || '-';
+            const targetUrl = document.getElementById('targetUrl').value.trim() || '-';
+            const paymentId = document.getElementById('hidden_payment_id').value || '-';
+            const reportDate = new Date().toLocaleString(currentLang === 'ko' ? 'ko-KR' : 'en-US');
+
+            const wrapper = document.createElement('div');
+            wrapper.className = 'bg-white text-slate-800';
+            wrapper.style.width = '794px';
+            wrapper.style.padding = '32px';
+            wrapper.style.fontFamily = 'Pretendard, Arial, sans-serif';
+            wrapper.innerHTML = `
+                <div style="margin-bottom:24px; border-bottom:1px solid #e5e7eb; padding-bottom:18px;">
+                    <div style="font-size:12px; font-weight:800; color:#f97316; letter-spacing:0.08em; text-transform:uppercase; margin-bottom:8px;">Media Naranja GEO Analytics Console</div>
+                    <h1 style="font-size:30px; line-height:1.25; font-weight:900; color:#0f172a; margin:0 0 12px;">${i18n[currentLang]['payment_order_name']}</h1>
+                    <div style="font-size:13px; color:#64748b; line-height:1.7;">
+                        <div><strong>Organization</strong>: ${escapeHtml(companyName)}</div>
+                        <div><strong>URL</strong>: ${escapeHtml(targetUrl)}</div>
+                        <div><strong>Payment ID</strong>: ${escapeHtml(paymentId)}</div>
+                        <div><strong>Created</strong>: ${escapeHtml(reportDate)}</div>
+                    </div>
+                </div>
+            `;
+            wrapper.appendChild(reportClone);
+            return wrapper;
+        }
+
+        function blobToBase64(blob) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onloadend = () => resolve(reader.result.split(',')[1]);
+                reader.onerror = reject;
+                reader.readAsDataURL(blob);
+            });
+        }
+
+        function escapeHtml(value) {
+            return String(value)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#039;');
+        }
+
+        async function createReportPdfBase64() {
+            const html2pdf = await loadHtml2Pdf();
+            const reportElement = createReportElement();
+            reportElement.style.position = 'fixed';
+            reportElement.style.left = '-10000px';
+            reportElement.style.top = '0';
+            document.body.appendChild(reportElement);
+
+            try {
+                const pdfBlob = await html2pdf()
+                    .set({
+                        margin: [8, 8, 8, 8],
+                        filename: 'geo-report.pdf',
+                        image: { type: 'jpeg', quality: 0.96 },
+                        html2canvas: { scale: 2, useCORS: true, backgroundColor: '#ffffff' },
+                        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+                    })
+                    .from(reportElement)
+                    .outputPdf('blob');
+                return await blobToBase64(pdfBlob);
+            } finally {
+                reportElement.remove();
+            }
+        }
+
+        async function sendReportEmail() {
+            const sendReportBtn = document.getElementById('sendReportBtn');
+            const email = document.getElementById('customerEmail').value.trim();
+            const companyName = document.getElementById('companyName').value.trim();
+            const phone = document.getElementById('customerPhone').value.trim();
+            const paymentId = document.getElementById('hidden_payment_id').value;
+
+            if (document.getElementById('resultSection').classList.contains('hidden')) {
+                setReportMessage('report_no_result', 'error');
+                return;
+            }
+
+            if (!email) {
+                setReportMessage('error_email', 'error');
+                return;
+            }
+
+            sendReportBtn.disabled = true;
+            sendReportBtn.classList.add('opacity-70', 'cursor-not-allowed');
+            setReportMessage('report_sending', 'info');
+
+            try {
+                const pdfBase64 = await createReportPdfBase64();
+                const payload = {
+                    organization: companyName || 'GEO 진단 고객',
+                    email,
+                    name: companyName || '',
+                    phone,
+                    message: 'GEO 진단 결과 PDF 리포트 메일 전송 요청',
+                    analysis_session_id: document.getElementById('hidden_session_id').value,
+                    summary_internal: document.getElementById('hidden_summary_internal').value,
+                    summary: document.getElementById('hidden_summary').value,
+                    total_score: document.getElementById('hidden_total_score').value,
+                    site_description: document.getElementById('hidden_site_description').value,
+                    payment_id: paymentId,
+                    report_pdf_filename: `geo-report-${paymentId || Date.now()}.pdf`,
+                    report_pdf_base64: pdfBase64,
+                };
+
+                const response = await fetch('https://chatbot.naranja.my/geo_mailing', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload),
+                });
+
+                if (!response.ok) throw new Error('Mailing API Error');
+                setReportMessage('report_success', 'success');
+            } catch (error) {
+                console.error(error);
+                setReportMessage('report_error', 'error');
+            } finally {
+                sendReportBtn.disabled = false;
+                sendReportBtn.classList.remove('opacity-70', 'cursor-not-allowed');
+            }
         }
 
         async function requestGeoAuditPayment({ companyName, url, email, phone }) {
