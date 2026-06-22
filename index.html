@@ -1148,6 +1148,7 @@
         const PORTONE_STORE_ID = 'store-7fa065e8-7458-40c9-a584-873133578b78';
         const PORTONE_CHANNEL_KEY = 'channel-key-e8c95e9c-0435-4b6b-ae26-30b8a66250d2';
         const GEO_AUDIT_PRICE = 5000;
+        const PAYMENT_ORDER_NAME = 'GEO Audit Report';
         const HTML_TO_IMAGE_URL = 'https://cdn.jsdelivr.net/npm/html-to-image@1.11.11/+esm';
         const JSPDF_URL = 'https://cdn.jsdelivr.net/npm/jspdf@2.5.1/+esm';
         let portOneSdkPromise = null;
@@ -1225,6 +1226,7 @@
             const resultSection = document.getElementById('resultSection');
             const reportClone = resultSection.cloneNode(true);
             reportClone.querySelectorAll('[data-report-exclude="true"]').forEach(el => el.remove());
+            reportClone.querySelectorAll('i[class*="fa-"]').forEach(el => el.remove());
             reportClone.classList.remove('hidden', 'fade-in');
 
             const companyName = document.getElementById('companyName').value.trim() || '-';
@@ -1269,6 +1271,14 @@
                 .replace(/>/g, '&gt;')
                 .replace(/"/g, '&quot;')
                 .replace(/'/g, '&#039;');
+        }
+
+        function sanitizeAsciiForPayment(value, fallback) {
+            const sanitized = String(value || '')
+                .replace(/[^\x20-\x7E]/g, '')
+                .replace(/[^A-Za-z0-9 ._@+-]/g, '')
+                .trim();
+            return sanitized || fallback;
         }
 
         async function createReportPdfBase64() {
@@ -1392,19 +1402,20 @@
                 storeId: PORTONE_STORE_ID,
                 channelKey: PORTONE_CHANNEL_KEY,
                 paymentId,
-                orderName: i18n[currentLang]['payment_order_name'],
+                orderName: PAYMENT_ORDER_NAME,
                 totalAmount: GEO_AUDIT_PRICE,
                 currency: 'CURRENCY_KRW',
                 payMethod: 'CARD',
                 customer: {
-                    fullName: companyName,
+                    fullName: sanitizeAsciiForPayment(companyName, 'GEO Customer'),
                     phoneNumber: phone,
                     email,
                 },
                 customData: {
-                    companyName,
-                    targetUrl: url,
+                    paymentId,
+                    targetUrl: encodeURIComponent(url),
                     product: 'geo_audit',
+                    lang: currentLang,
                 },
                 redirectUrl: window.location.href,
             });
