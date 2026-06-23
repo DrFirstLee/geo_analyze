@@ -962,7 +962,7 @@
     <div id="sampleModal" class="hidden fixed inset-0 z-[70] flex items-center justify-center p-4">
         <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" onclick="closeSampleModal()"></div>
 
-        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-4xl max-h-[90vh] overflow-y-auto relative z-10 transform transition-all scale-95 opacity-0"
+        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-5xl max-h-[90vh] overflow-y-auto relative z-10 transform transition-all scale-95 opacity-0"
             id="sampleModalContent">
             <div class="sticky top-0 bg-white/95 backdrop-blur border-b border-gray-100 px-5 py-4 md:px-8 flex items-center justify-between z-10">
                 <div>
@@ -997,12 +997,30 @@
                         <div>
                             <p class="text-naranja-400 text-xs font-bold tracking-wider uppercase mb-2">GEO Total Score</p>
                             <h4 class="text-3xl md:text-4xl font-black" data-i18n="sample_company">샘플 브랜드 진단 리포트</h4>
-                            <p class="text-sm text-gray-300 mt-3 leading-relaxed" data-i18n="sample_summary">AI 검색 노출에 필요한 기본 기술 구조는 갖췄지만, 브랜드 신뢰 신호와 외부 평판 데이터 보강이 필요합니다.</p>
+                            <p class="text-sm text-gray-300 mt-3 leading-relaxed" data-i18n="sample_summary">내부 콘텐츠 구조는 기본 수준을 충족하지만, 외부 평판 신호가 약해 AI 답변에서 신뢰 가능한 출처로 선택될 가능성이 낮은 상태입니다.</p>
                         </div>
                         <div class="flex-shrink-0 text-center">
-                            <div class="text-6xl font-black tracking-tighter text-naranja-400">72</div>
-                            <p class="text-xs text-gray-400 font-bold mt-1">Average</p>
+                            <div class="text-6xl font-black tracking-tighter text-red-400">46</div>
+                            <p class="text-xs text-gray-400 font-bold mt-1">Priority Fix</p>
                         </div>
+                    </div>
+                </section>
+
+                <section class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="rounded-2xl border border-gray-100 bg-white p-5 shadow-sm">
+                        <p class="text-xs font-bold text-gray-400 mb-2" data-i18n="sample_site_label">분석 대상</p>
+                        <p class="font-black text-slate-900">naranja blog</p>
+                        <p class="text-xs text-gray-500 mt-2 leading-relaxed" data-i18n="sample_site_desc">AI 챗봇, AICC, GEO 관련 기술 블로그 형태의 샘플 사이트</p>
+                    </div>
+                    <div class="rounded-2xl border border-gray-100 bg-white p-5 shadow-sm">
+                        <p class="text-xs font-bold text-gray-400 mb-2" data-i18n="sample_internal_grade_label">내부 최적화 상태</p>
+                        <p class="text-2xl font-black text-yellow-500">Average <span class="text-slate-900">66</span></p>
+                        <p class="text-xs text-gray-500 mt-2 leading-relaxed" data-i18n="sample_internal_grade_desc">검색·AI가 읽을 수 있는 기본 구조는 있으나 요약형 콘텐츠와 명확한 핵심 정보 표기가 부족합니다.</p>
+                    </div>
+                    <div class="rounded-2xl border border-gray-100 bg-white p-5 shadow-sm">
+                        <p class="text-xs font-bold text-gray-400 mb-2" data-i18n="sample_external_grade_label">외부 평판 상태</p>
+                        <p class="text-2xl font-black text-red-500">Poor <span class="text-slate-900">25</span></p>
+                        <p class="text-xs text-gray-500 mt-2 leading-relaxed" data-i18n="sample_external_grade_desc">언론, 리뷰, 외부 인용 신호가 제한적이라 AI가 브랜드 신뢰도를 검증하기 어렵습니다.</p>
                     </div>
                 </section>
 
@@ -1010,38 +1028,82 @@
                     <div class="rounded-2xl border border-gray-100 p-5 shadow-sm">
                         <div class="flex items-center justify-between mb-4">
                             <h4 class="font-black text-slate-900" data-i18n="sample_internal_title">내부 최적화 진단</h4>
-                            <span class="text-2xl font-black text-naranja-500">78</span>
+                            <span class="text-2xl font-black text-yellow-500">66</span>
                         </div>
                         <div class="space-y-3 text-sm">
-                            <div class="flex items-center justify-between gap-3"><span>Technical</span><span class="font-bold">82</span></div>
-                            <div class="h-2 bg-gray-100 rounded-full overflow-hidden"><div class="h-full w-[82%] bg-naranja-500 rounded-full"></div></div>
-                            <div class="flex items-center justify-between gap-3"><span>Content Clarity</span><span class="font-bold">74</span></div>
-                            <div class="h-2 bg-gray-100 rounded-full overflow-hidden"><div class="h-full w-[74%] bg-naranja-500 rounded-full"></div></div>
-                            <div class="flex items-center justify-between gap-3"><span>AI Readability</span><span class="font-bold">79</span></div>
-                            <div class="h-2 bg-gray-100 rounded-full overflow-hidden"><div class="h-full w-[79%] bg-naranja-500 rounded-full"></div></div>
+                            <div class="flex items-center justify-between gap-3"><span>Technical</span><span class="font-bold">24</span></div>
+                            <div class="h-2 bg-gray-100 rounded-full overflow-hidden"><div class="h-full w-[80%] bg-blue-500 rounded-full"></div></div>
+                            <p class="text-xs text-gray-500 leading-relaxed" data-i18n="sample_tech_desc">제목, 설명, 헤더, 기계 가시성은 비교적 명확합니다. 다만 Blog 타입 JSON-LD 구조화 데이터가 포함되어 있지 않아 AI가 페이지 성격과 발행 주체를 빠르게 확정하기 어렵습니다.</p>
+                            <div class="flex items-center justify-between gap-3"><span>Content Clarity</span><span class="font-bold">22</span></div>
+                            <div class="h-2 bg-gray-100 rounded-full overflow-hidden"><div class="h-full w-[73%] bg-purple-500 rounded-full"></div></div>
+                            <p class="text-xs text-gray-500 leading-relaxed" data-i18n="sample_content_desc">AI 챗봇, AICC, GEO 등 핵심 주제는 드러나지만 요약·대상·결과·지표가 분산되어 있어 AI가 답변에 바로 인용할 수 있는 문장 단위 정보가 부족합니다.</p>
+                            <div class="flex items-center justify-between gap-3"><span>Authority</span><span class="font-bold">6</span></div>
+                            <div class="h-2 bg-gray-100 rounded-full overflow-hidden"><div class="h-full w-[30%] bg-orange-500 rounded-full"></div></div>
+                            <p class="text-xs text-gray-500 leading-relaxed" data-i18n="sample_authority_desc">외부 인용, 출처 링크, 사례 기반 근거가 거의 없어 콘텐츠 권위 신호가 낮게 평가됩니다.</p>
+                            <div class="flex items-center justify-between gap-3"><span>AI Readability</span><span class="font-bold">14</span></div>
+                            <div class="h-2 bg-gray-100 rounded-full overflow-hidden"><div class="h-full w-[70%] bg-teal-500 rounded-full"></div></div>
+                            <p class="text-xs text-gray-500 leading-relaxed" data-i18n="sample_ai_desc">사람이 읽기에는 자연스럽지만 AI가 빠르게 추출할 수 있는 Q&A, 표, 핵심 요약 블록이 부족해 인용 가능성이 제한됩니다.</p>
                         </div>
                     </div>
 
                     <div class="rounded-2xl border border-gray-100 p-5 shadow-sm">
                         <div class="flex items-center justify-between mb-4">
                             <h4 class="font-black text-slate-900" data-i18n="sample_external_title">외부 평판 진단</h4>
-                            <span class="text-2xl font-black text-blue-500">66</span>
+                            <span class="text-2xl font-black text-red-500">25</span>
                         </div>
-                        <div class="grid grid-cols-2 gap-3 text-sm">
-                            <div class="rounded-xl bg-gray-50 p-3"><p class="text-gray-400 text-xs">Media</p><p class="font-black text-slate-900 text-xl">61</p></div>
-                            <div class="rounded-xl bg-gray-50 p-3"><p class="text-gray-400 text-xs">Review</p><p class="font-black text-slate-900 text-xl">70</p></div>
-                            <div class="rounded-xl bg-gray-50 p-3"><p class="text-gray-400 text-xs">LLM</p><p class="font-black text-slate-900 text-xl">64</p></div>
-                            <div class="rounded-xl bg-gray-50 p-3"><p class="text-gray-400 text-xs">Entity</p><p class="font-black text-slate-900 text-xl">69</p></div>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
+                            <div class="rounded-xl bg-gray-50 p-3"><p class="text-gray-400 text-xs">Media</p><p class="font-black text-slate-900 text-xl">2</p><p class="text-xs text-gray-500 mt-2 leading-relaxed" data-i18n="sample_media_desc">외부에서 관측 가능한 언론·콘텐츠 언급이 매우 적어 브랜드 검증 신호가 약합니다.</p></div>
+                            <div class="rounded-xl bg-gray-50 p-3"><p class="text-gray-400 text-xs">Review</p><p class="font-black text-slate-900 text-xl">0</p><p class="text-xs text-gray-500 mt-2 leading-relaxed" data-i18n="sample_review_desc">구글 장소 리뷰 등 확인 가능한 리뷰 신호가 부족해 대중 인지도와 경험 데이터가 거의 반영되지 않습니다.</p></div>
+                            <div class="rounded-xl bg-gray-50 p-3"><p class="text-gray-400 text-xs">LLM</p><p class="font-black text-slate-900 text-xl">11</p><p class="text-xs text-gray-500 mt-2 leading-relaxed" data-i18n="sample_llm_desc">AI 모델이 관련 주제를 일부 이해하지만 브랜드명과 대표 서비스가 강하게 연결되지는 않습니다.</p></div>
+                            <div class="rounded-xl bg-gray-50 p-3"><p class="text-gray-400 text-xs">Entity</p><p class="font-black text-slate-900 text-xl">6</p><p class="text-xs text-gray-500 mt-2 leading-relaxed" data-i18n="sample_entity_desc">사업자 정보와 공식 채널을 연결하는 외부 근거가 적어 하나의 신뢰 엔티티로 인식되기 어렵습니다.</p></div>
+                            <div class="rounded-xl bg-gray-50 p-3 sm:col-span-2"><p class="text-gray-400 text-xs">Brand Consistency</p><p class="font-black text-slate-900 text-xl">6</p><p class="text-xs text-gray-500 mt-2 leading-relaxed" data-i18n="sample_brand_desc">브랜드명, 서비스명, 기술 키워드가 여러 맥락에 흩어져 있어 AI가 일관된 브랜드 메시지로 요약하기 어렵습니다.</p></div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="rounded-2xl border border-gray-100 bg-white p-5 shadow-sm">
+                    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3 mb-4">
+                        <div>
+                            <h4 class="font-black text-slate-900" data-i18n="sample_insight_title">핵심 인사이트</h4>
+                            <p class="text-xs text-gray-500 mt-1" data-i18n="sample_insight_desc">실제 리포트는 점수와 함께 원인, 영향, 개선 우선순위를 함께 제공합니다.</p>
+                        </div>
+                        <span class="inline-flex items-center gap-2 rounded-full bg-red-50 px-3 py-1 text-xs font-bold text-red-600"><i class="fa-solid fa-triangle-exclamation"></i><span data-i18n="sample_risk_badge">외부 신뢰 신호 보강 필요</span></span>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-sm">
+                        <div class="rounded-xl border border-gray-100 p-4">
+                            <p class="font-bold text-slate-900 mb-2" data-i18n="sample_insight_1_title">AI 인용 가능성</p>
+                            <p class="text-gray-600 leading-relaxed" data-i18n="sample_insight_1_desc">본문은 읽히지만 AI가 답변에 바로 가져갈 수 있는 요약 문장, FAQ, 표 형식 근거가 부족합니다.</p>
+                        </div>
+                        <div class="rounded-xl border border-gray-100 p-4">
+                            <p class="font-bold text-slate-900 mb-2" data-i18n="sample_insight_2_title">브랜드 검증성</p>
+                            <p class="text-gray-600 leading-relaxed" data-i18n="sample_insight_2_desc">외부 출처에서 브랜드를 검증할 수 있는 언급이 적어 AI 답변 내 추천·인용 우선순위가 낮아질 수 있습니다.</p>
+                        </div>
+                        <div class="rounded-xl border border-gray-100 p-4">
+                            <p class="font-bold text-slate-900 mb-2" data-i18n="sample_insight_3_title">개선 우선순위</p>
+                            <p class="text-gray-600 leading-relaxed" data-i18n="sample_insight_3_desc">구조화 데이터, 핵심 요약 블록, 외부 프로필·사례·후기 신호를 순차적으로 보강하는 것이 효과적입니다.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="rounded-2xl border border-gray-100 bg-white p-5 shadow-sm">
+                    <div class="flex items-start gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center flex-shrink-0">
+                            <i class="fa-solid fa-magnifying-glass-chart"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-black text-slate-900 mb-2" data-i18n="sample_detail_title">샘플 상세 진단 설명</h4>
+                            <p class="text-sm text-slate-600 leading-relaxed" data-i18n="sample_detail_desc">이 샘플 리포트는 단순 점수뿐 아니라 각 점수가 산출된 이유를 함께 제공합니다. 실제 진단에서는 입력한 회사명과 URL을 기준으로 기술 구조, 콘텐츠 명확성, AI 인용 가능성, 외부 신뢰 신호를 종합해 항목별 설명과 개선 우선순위를 제시합니다.</p>
                         </div>
                     </div>
                 </section>
 
                 <section class="rounded-2xl border border-naranja-100 bg-naranja-50 p-5">
                     <h4 class="font-black text-slate-900 mb-3" data-i18n="sample_action_title">샘플 개선 방향</h4>
-                    <ul class="space-y-2 text-sm text-slate-700 leading-relaxed">
-                        <li class="flex gap-2"><i class="fa-solid fa-check text-naranja-500 mt-1"></i><span data-i18n="sample_action_1">Organization, Service, FAQ 스키마를 보강해 AI가 서비스 범위를 명확히 이해하도록 개선</span></li>
-                        <li class="flex gap-2"><i class="fa-solid fa-check text-naranja-500 mt-1"></i><span data-i18n="sample_action_2">브랜드명, 대표 서비스명, 지역 정보를 일관된 표현으로 정리</span></li>
-                        <li class="flex gap-2"><i class="fa-solid fa-check text-naranja-500 mt-1"></i><span data-i18n="sample_action_3">외부 언급, 리뷰, 공식 프로필 등 신뢰 신호를 확장</span></li>
+                    <ul class="space-y-3 text-sm text-slate-700 leading-relaxed">
+                        <li class="flex gap-3"><span class="mt-0.5 rounded-full bg-naranja-500 px-2 py-0.5 text-xs font-black text-white">1</span><span data-i18n="sample_action_1">BlogPosting, Organization, FAQ 스키마를 추가해 AI가 페이지 주제와 발행 주체를 명확히 식별하도록 개선</span></li>
+                        <li class="flex gap-3"><span class="mt-0.5 rounded-full bg-naranja-500 px-2 py-0.5 text-xs font-black text-white">2</span><span data-i18n="sample_action_2">각 글 상단에 핵심 요약, 대상 고객, 기대 결과, 관련 지표를 표 형태로 배치</span></li>
+                        <li class="flex gap-3"><span class="mt-0.5 rounded-full bg-naranja-500 px-2 py-0.5 text-xs font-black text-white">3</span><span data-i18n="sample_action_3">외부 언급, 고객 사례, 공식 프로필, 리뷰 채널을 확장해 평판 신호를 강화</span></li>
+                        <li class="flex gap-3"><span class="mt-0.5 rounded-full bg-naranja-500 px-2 py-0.5 text-xs font-black text-white">4</span><span data-i18n="sample_action_4">브랜드명·서비스명·기술 키워드 표현을 통일해 AI가 하나의 엔티티로 학습할 수 있게 정리</span></li>
                     </ul>
                 </section>
             </div>
@@ -1154,13 +1216,40 @@
                 sample_content_label: "제공내용",
                 sample_content_value: "GEO 종합 점수, 내부 최적화, 외부 평판, 개선 방향",
                 sample_company: "샘플 브랜드 진단 리포트",
-                sample_summary: "AI 검색 노출에 필요한 기본 기술 구조는 갖췄지만, 브랜드 신뢰 신호와 외부 평판 데이터 보강이 필요합니다.",
+                sample_summary: "내부 콘텐츠 구조는 기본 수준을 충족하지만, 외부 평판 신호가 약해 AI 답변에서 신뢰 가능한 출처로 선택될 가능성이 낮은 상태입니다.",
+                sample_site_label: "분석 대상",
+                sample_site_desc: "AI 챗봇, AICC, GEO 관련 기술 블로그 형태의 샘플 사이트",
+                sample_internal_grade_label: "내부 최적화 상태",
+                sample_internal_grade_desc: "검색·AI가 읽을 수 있는 기본 구조는 있으나 요약형 콘텐츠와 명확한 핵심 정보 표기가 부족합니다.",
+                sample_external_grade_label: "외부 평판 상태",
+                sample_external_grade_desc: "언론, 리뷰, 외부 인용 신호가 제한적이라 AI가 브랜드 신뢰도를 검증하기 어렵습니다.",
                 sample_internal_title: "내부 최적화 진단",
                 sample_external_title: "외부 평판 진단",
+                sample_tech_desc: "제목, 설명, 헤더, 기계 가시성은 비교적 명확합니다. 다만 Blog 타입 JSON-LD 구조화 데이터가 포함되어 있지 않아 AI가 페이지 성격과 발행 주체를 빠르게 확정하기 어렵습니다.",
+                sample_content_desc: "AI 챗봇, AICC, GEO 등 핵심 주제는 드러나지만 요약·대상·결과·지표가 분산되어 있어 AI가 답변에 바로 인용할 수 있는 문장 단위 정보가 부족합니다.",
+                sample_authority_desc: "외부 인용, 출처 링크, 사례 기반 근거가 거의 없어 콘텐츠 권위 신호가 낮게 평가됩니다.",
+                sample_ai_desc: "사람이 읽기에는 자연스럽지만 AI가 빠르게 추출할 수 있는 Q&A, 표, 핵심 요약 블록이 부족해 인용 가능성이 제한됩니다.",
+                sample_media_desc: "외부에서 관측 가능한 언론·콘텐츠 언급이 매우 적어 브랜드 검증 신호가 약합니다.",
+                sample_review_desc: "구글 장소 리뷰 등 확인 가능한 리뷰 신호가 부족해 대중 인지도와 경험 데이터가 거의 반영되지 않습니다.",
+                sample_llm_desc: "AI 모델이 관련 주제를 일부 이해하지만 브랜드명과 대표 서비스가 강하게 연결되지는 않습니다.",
+                sample_entity_desc: "사업자 정보와 공식 채널을 연결하는 외부 근거가 적어 하나의 신뢰 엔티티로 인식되기 어렵습니다.",
+                sample_brand_desc: "브랜드명, 서비스명, 기술 키워드가 여러 맥락에 흩어져 있어 AI가 일관된 브랜드 메시지로 요약하기 어렵습니다.",
+                sample_insight_title: "핵심 인사이트",
+                sample_insight_desc: "실제 리포트는 점수와 함께 원인, 영향, 개선 우선순위를 함께 제공합니다.",
+                sample_risk_badge: "외부 신뢰 신호 보강 필요",
+                sample_insight_1_title: "AI 인용 가능성",
+                sample_insight_1_desc: "본문은 읽히지만 AI가 답변에 바로 가져갈 수 있는 요약 문장, FAQ, 표 형식 근거가 부족합니다.",
+                sample_insight_2_title: "브랜드 검증성",
+                sample_insight_2_desc: "외부 출처에서 브랜드를 검증할 수 있는 언급이 적어 AI 답변 내 추천·인용 우선순위가 낮아질 수 있습니다.",
+                sample_insight_3_title: "개선 우선순위",
+                sample_insight_3_desc: "구조화 데이터, 핵심 요약 블록, 외부 프로필·사례·후기 신호를 순차적으로 보강하는 것이 효과적입니다.",
+                sample_detail_title: "샘플 상세 진단 설명",
+                sample_detail_desc: "이 샘플 리포트는 단순 점수뿐 아니라 각 점수가 산출된 이유를 함께 제공합니다. 실제 진단에서는 입력한 회사명과 URL을 기준으로 기술 구조, 콘텐츠 명확성, AI 인용 가능성, 외부 신뢰 신호를 종합해 항목별 설명과 개선 우선순위를 제시합니다.",
                 sample_action_title: "샘플 개선 방향",
-                sample_action_1: "Organization, Service, FAQ 스키마를 보강해 AI가 서비스 범위를 명확히 이해하도록 개선",
-                sample_action_2: "브랜드명, 대표 서비스명, 지역 정보를 일관된 표현으로 정리",
-                sample_action_3: "외부 언급, 리뷰, 공식 프로필 등 신뢰 신호를 확장"
+                sample_action_1: "BlogPosting, Organization, FAQ 스키마를 추가해 AI가 페이지 주제와 발행 주체를 명확히 식별하도록 개선",
+                sample_action_2: "각 글 상단에 핵심 요약, 대상 고객, 기대 결과, 관련 지표를 표 형태로 배치",
+                sample_action_3: "외부 언급, 고객 사례, 공식 프로필, 리뷰 채널을 확장해 평판 신호를 강화",
+                sample_action_4: "브랜드명·서비스명·기술 키워드 표현을 통일해 AI가 하나의 엔티티로 학습할 수 있게 정리"
             },
             en: {
                 title_1: "Is your website",
@@ -1266,13 +1355,40 @@
                 sample_content_label: "Service Contents",
                 sample_content_value: "Overall GEO score, on-site optimization, off-site reputation, and improvement direction",
                 sample_company: "Sample Brand Audit Report",
-                sample_summary: "The basic technical structure for AI search visibility is in place, but brand trust signals and external reputation data need reinforcement.",
+                sample_summary: "The internal content structure meets a basic standard, but weak external reputation signals reduce the chance of being selected as a trusted source in AI answers.",
+                sample_site_label: "Audit Target",
+                sample_site_desc: "Sample technology blog covering AI chatbots, AICC, and GEO topics",
+                sample_internal_grade_label: "On-Site Status",
+                sample_internal_grade_desc: "The basic structure is readable by search and AI, but concise summaries and clear key information blocks are still insufficient.",
+                sample_external_grade_label: "Off-Site Status",
+                sample_external_grade_desc: "Media, review, and citation signals are limited, making it difficult for AI to verify brand trust.",
                 sample_internal_title: "On-Site Assessment",
                 sample_external_title: "Off-Site Assessment",
+                sample_tech_desc: "Titles, descriptions, headings, and machine visibility are fairly clear. However, Blog-type JSON-LD structured data is missing, so AI may not quickly confirm the page type and publisher.",
+                sample_content_desc: "Core topics such as AI chatbots, AICC, and GEO are visible, but summaries, audience, outcomes, and metrics are scattered, leaving fewer sentence-level facts AI can cite directly.",
+                sample_authority_desc: "External citations, source links, and case-based evidence are limited, so content authority is evaluated as weak.",
+                sample_ai_desc: "The content reads naturally for humans, but lacks Q&A, tables, and summary blocks that AI can quickly extract, limiting citation potential.",
+                sample_media_desc: "Observable media and external content mentions are very limited, weakening brand verification signals.",
+                sample_review_desc: "Verifiable review signals such as Google place reviews are insufficient, so public awareness and experience data are barely reflected.",
+                sample_llm_desc: "AI models understand parts of the topic, but the brand name and flagship services are not strongly connected.",
+                sample_entity_desc: "There is little external evidence linking business information and official channels, making it harder to recognize the brand as one trusted entity.",
+                sample_brand_desc: "Brand name, service names, and technical keywords are scattered across contexts, making consistent AI summarization harder.",
+                sample_insight_title: "Key Insights",
+                sample_insight_desc: "The actual report provides causes, impact, and improvement priorities together with the scores.",
+                sample_risk_badge: "External trust signals needed",
+                sample_insight_1_title: "AI Citation Potential",
+                sample_insight_1_desc: "The content is readable, but lacks concise summary sentences, FAQs, and table-style evidence that AI can directly use in answers.",
+                sample_insight_2_title: "Brand Verifiability",
+                sample_insight_2_desc: "Few external sources verify the brand, which may lower recommendation and citation priority in AI answers.",
+                sample_insight_3_title: "Improvement Priority",
+                sample_insight_3_desc: "Structured data, key summary blocks, external profiles, case studies, and review signals should be strengthened step by step.",
+                sample_detail_title: "Sample Detailed Diagnosis",
+                sample_detail_desc: "This sample report provides not only scores, but also the reason each score was assigned. In the actual audit, we analyze the submitted company name and URL across technical structure, content clarity, AI citation potential, and external trust signals, then provide item-level descriptions and improvement priorities.",
                 sample_action_title: "Sample Improvement Direction",
-                sample_action_1: "Strengthen Organization, Service, and FAQ schema so AI can understand the service scope clearly",
-                sample_action_2: "Unify brand name, core service names, and location information across the site",
-                sample_action_3: "Expand trust signals such as external mentions, reviews, and official profiles"
+                sample_action_1: "Add BlogPosting, Organization, and FAQ schema so AI can clearly identify the page topic and publisher",
+                sample_action_2: "Place key summaries, target audience, expected outcomes, and related metrics near the top of each article in table form",
+                sample_action_3: "Strengthen reputation signals through external mentions, customer cases, official profiles, and review channels",
+                sample_action_4: "Unify brand, service, and technical keyword expressions so AI can learn them as one entity"
             }
         };
 
